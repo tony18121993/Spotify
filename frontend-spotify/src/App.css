@@ -52,9 +52,16 @@ body {
   color: var(--greyText);
 }
 
+.outerWrap {
+  background: grey;
+  height: 100vh;
+  min-height: 100%;
+  width: 100%;
+}
+
 /* Componentes */
 .App {
-  height: calc(100vh - 90px);
+  height: 80vh;
   background: var(--greyLight);
   display: flex;
 }
@@ -108,18 +115,20 @@ body {
   margin-right: 15px;
 }
 
+.navBar ul li{
+  color: var(--greyText)
+}
+
+
+
 .navBar ul li.active {
   background: var(--greyLighter);
   color: white;
 }
 
-.navBar ul li.active svg {
-  fill: white;
-}
-
 .navBar ul li:hover {
   color: white;
-}
+} 
 
 .navBar .cookies {
   font-size: 0.6rem;
@@ -127,18 +136,116 @@ body {
   text-align: center;
   margin-top: auto;
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.outerWrap {
-  background: grey;
-  height: 100vh;
-  min-height: 100%;
+.language-button {
+  background-color: transparent;
+  color: white;
+  display: flex;
+  align-items: center; /* Alinea el contenido verticalmente */
+  justify-content: center; /* Alinea el contenido horizontalmente */
+  border: 1px solid white; /* Quita el borde */
+  border-radius: 40%; /* Hace que el botón sea redondo */
+  width:  130px;
+  height: 40px;
+  font-size: 18px;
+  cursor: pointer;
 }
+
+.language-button:hover {
+  text-decoration: underline;
+}
+
+.language-icon {
+  margin-right: 5px;
+}
+
+/* estilos reproductor  */
+.player {
+  display: flex;
+  align-items: center;
+  background-color: #121212;
+  color: white;
+  padding: 20px;
+  
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+}
+
+.album-cover {
+  margin-right: 20px;
+}
+
+.album-cover img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.song-info {
+  flex-grow: 1;
+}
+
+.player-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+
+.progress-controls {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.progress-bar {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+.control-button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 28px; /* Ajusta el tamaño de la fuente según sea necesario */
+  border-radius: 50px; /* Hace que los botones sean redondos y alargados */
+  padding: 10px 20px; /* Ajusta el relleno para hacer los botones más grandes */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Agrega una transición suave al color de fondo */
+}
+
+.control-button:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Cambia el color de fondo al pasar el mouse */
+}
+
+.volume-button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 28px; /* Ajusta el tamaño de la fuente según sea necesario */
+  border-radius: 50px; /* Hace que el botón sea redondo y alargado */
+  padding: 10px 20px; /* Ajusta el relleno para hacer el botón más grande */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Agrega una transición suave al color de fondo */
+}
+
+.volume-button:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Cambia el color de fondo al pasar el mouse */
+}
+
+
+
+
+
+
 
 .musicControls {
   background: var(--greyLighter);
   text-align: center;
-  height: 90px;
+  height: 20vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -407,4 +514,27 @@ ul.songList li .songIcon svg {
 
 .icons .iconsHeart svg {
   fill: white;
+}
+
+
+
+/* Estilos para la barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 10px; /* Ancho de la barra de desplazamiento */
+}
+
+/* Estilo del riel de la barra de desplazamiento */
+::-webkit-scrollbar-track {
+  background-color: var(--greyLighter); /* Color de fondo del riel de la barra de desplazamiento */
+}
+
+/* Estilo del mango (scrollbar) */
+::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color del mango (scrollbar) */
+  border-radius: 5px; /* Borde redondeado del mango */
+}
+
+/* Cambiar el color del mango (scrollbar) al pasar el mouse */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Nuevo color del mango (scrollbar) al pasar el mouse */
 }
