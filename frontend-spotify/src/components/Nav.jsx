@@ -25,19 +25,19 @@ const Nav = () => {
         </svg>
       </div>
       <ul>
-        <Link to="/" onClick={() => handleItemClick("home")}>
+        <Link to="/inicio" onClick={() => handleItemClick("home")}>
           <li className={activeItem === "home" ? "active" : ""}>
             <HomeIcon />
             Inicio
           </li>
         </Link>
-        <Link to="/search" onClick={() => handleItemClick("search")}>
+        <Link to="/inicio/search" onClick={() => handleItemClick("search")}>
           <li className={activeItem === "search" ? "active" : ""}>
             <SearchIcon />
             Buscar
           </li>
         </Link>
-        <Link to="/your-library" onClick={() => handleItemClick("library")}>
+        <Link to="/inicio/your-library" onClick={() => handleItemClick("library")}>
           <li className={activeItem === "library" ? "active" : ""}>
             <LibraryIcon />
             Tu Biblioteca

@@ -1,21 +1,20 @@
-import React from 'react'
-import Nav from './components/Nav'
-import Main from './components/Main'
-import './App.css'
-import Player from './components/Reproductor'
+import React from "react";
+import "./App.css";
+import LoginPage from "./components/Login";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Inicio } from "./components/Inicio";
+import {Main}  from "./components/Main"; 
 
 const App = () => {
   return (
-    <div className="outerWrap">
-      <div className="App">
-        <Nav />
-        <Main />
-      </div>
-      <div className="musicControls">
-        <Player />
-      </div>
-    </div>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/inicio/*" element={<Inicio />} />
+        <Route path="/*" element={<Main />} /> 
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;
