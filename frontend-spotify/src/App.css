@@ -45,7 +45,7 @@
 
 body {
   font-family: circular-book;
-  background: #282828;
+  background: #282828 !important;
 }
 
 .subText {
@@ -63,7 +63,7 @@ body {
 /* Componentes */
 .App {
   height: 80vh;
-  background: var(--greyLight);
+  background: var(--greyLight) ;
   display: flex;
 }
 
@@ -137,32 +137,54 @@ body {
   text-align: center;
   margin-top: auto;
   padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 .language-button {
   background-color: transparent;
   color: white;
   display: flex;
-  align-items: center; /* Alinea el contenido verticalmente */
-  justify-content: center; /* Alinea el contenido horizontalmente */
-  border: 1px solid white; /* Quita el borde */
-  border-radius: 40%; /* Hace que el botón sea redondo */
-  width:  130px;
+  align-items: center;
+  justify-content: center; 
+  border: none; 
+  width:  180px;
   height: 40px;
   font-size: 18px;
   cursor: pointer;
 }
 
-.language-button:hover {
-  text-decoration: underline;
-}
+
 
 .language-icon {
   margin-right: 5px;
+}
+.language {
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 16px;
+  padding: 8px; 
+  appearance: none; 
+  cursor: pointer;
+}
+.language option{
+  padding: 20px;
+  background-color: var(--greyLighter);
+  color: white;
+}
+
+.language:focus {
+  outline: none;
+}
+
+.boton-close {
+  font-size: 1rem;
+  text-decoration: none;
+  color: white;
+  display: inline-block; 
+  width: 100%; 
+  text-align: start; 
+  cursor: pointer;
 }
 
 /* estilos reproductor  */
@@ -241,12 +263,6 @@ body {
 .volume-button:hover {
   background-color: rgba(255, 255, 255, 0.2); 
 }
-
-
-
-
-
-
 
 .musicControls {
   background: var(--greyLighter);
@@ -381,13 +397,7 @@ body {
 }
 
 .playlistPage .mainInner {
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(rgba(0, 0, 0, 0.5)),
-    color-stop(40%, #121212)
-  );
+ 
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), #121212 40%);
   width: 100%;
   display: flex;

@@ -7,22 +7,22 @@ const Categories = () => {
   const dataCategories = [
     {
       id: 1,
-      name: 'Focus',
-      tagline: 'Music to help you concentrate',
+      name: 'Concentrate',
+      tagline: 'Musica para concentrarte',
     },
     {
       id: 2,
-      name: 'Mood',
-      tagline: 'Playlists to match your mood',
+      name: 'Estado de ánimo',
+      tagline: 'Listas de reproducción para coincidir con tu estado de ánimo',
     },
     {
       id: 3,
-      name: 'Soundtrack your home',
+      name: 'Dale un sonido a tu hogar',
       tagline: '',
     },
     {
       id: 4,
-      name: 'Kick back this Sunday...',
+      name: 'Relájate este domingo',
     },
   ]
 
