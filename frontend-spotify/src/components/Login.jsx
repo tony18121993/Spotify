@@ -18,22 +18,37 @@ function generateToken() {
   return token;
 }
 
+
+const usuarios = [
+  { username: 'pepe', password: 'pepe', tipo_usuario: 'premium' },
+  { username: 'maria', password: 'maria', tipo_usuario: 'gratuito' },
+  { username: 'juan', password: 'juan123', tipo_usuario: 'premium' },
+  { username: 'laura', password: 'laura123', tipo_usuario: 'gratuito' },
+  { username: 'carlos', password: 'carlos123', tipo_usuario: 'premium' },
+  { username: 'ana', password: 'ana123', tipo_usuario: 'gratuito' }
+];
+
+
 const LoginPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = (data) => {
-    // Verificar si el nombre de usuario y la contraseña son correctos
-    if (data.username === 'pepe' && data.password === 'pepe') {
-      // Si son correctos, generar un token aleatorio
+    // Buscar el usuario ingresado en el array de usuarios
+    const usuario = usuarios.find(u => u.username === data.username && u.password === data.password);
+    
+    if (usuario) {
+      // Si el usuario es encontrado, generar un token aleatorio
       const token = generateToken();
       // Guardar el token en el localStorage
       localStorage.setItem('token', token);
+      // Guardar el tipo de usuario en el localStorage
+      localStorage.setItem('tipo_usuario', usuario.tipo_usuario);
       // Redirigir a la página de inicio
       navigate('/inicio');
     } else {
-      // Si son incorrectos, mostrar un mensaje de error
+      // Si el usuario no es encontrado, mostrar un mensaje de error
       setErrorMessage('Nombre de usuario o contraseña incorrectos');
     }
   };

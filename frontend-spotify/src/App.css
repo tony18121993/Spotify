@@ -177,14 +177,14 @@ body {
   outline: none;
 }
 
-.boton-close {
+.boton-close { background-color: transparent;
   font-size: 1rem;
   text-decoration: none;
   color: white;
-  display: inline-block; 
   width: 100%; 
   text-align: start; 
   cursor: pointer;
+  border: none;
 }
 
 /* estilos reproductor  */

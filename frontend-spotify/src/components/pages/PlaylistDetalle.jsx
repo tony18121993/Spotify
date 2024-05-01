@@ -1,11 +1,11 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import { ReactComponent as PlayIcon } from '../../svgs/play.svg';
 import { ReactComponent as HeartIcon } from '../../svgs/heart.svg';
 import { ReactComponent as NoteIcon } from '../../svgs/note.svg';
 
 const PlaylistPage = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
 
   const playlistOptions = [
     {
@@ -47,12 +47,12 @@ const PlaylistPage = () => {
           </div>
           <div className="playlistPageContent">
             <p className="smallText uppercase bold">Playlist</p>
-            <h1>Un día </h1>
+            <h1>Lofi </h1>
             <p className="tagline">
               Minimalismo, electrónica y música clásica moderna para concentrarse
             </p>
             <div className="playlistPageDesc">
-              <p className="spotify">Spotify</p>
+              <p className="spotify">Música</p>
               <span>699,428 likes</span>
               <span>4hr 35 min</span>
             </div>

@@ -1,0 +1,32 @@
+.crear-lista {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: transparent;
+    border-radius: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .crear-lista p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .crear-lista button {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    text-align: center;
+    background-color: #1db954;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .crear-lista button:hover {
+    background-color: #168f3f;
+  }
+  

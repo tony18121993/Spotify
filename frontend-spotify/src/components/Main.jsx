@@ -3,6 +3,7 @@ import Categories from "./Categories";
 import PlaylistPage from "./pages/PlaylistDetalle";
 import { Route, Routes } from "react-router-dom";
 import SearchBar from "./Search";
+import  CrearListaReprodruccion  from "./ListaRepodrucionCrear";
 
 const dataPlaylists = [
   {
@@ -150,7 +151,7 @@ export function Main() {
       <Routes>
           <Route path="/"  element={<Categories />}></Route>
           <Route path="/search" element={<SearchBar dataPlaylists={dataPlaylists} />}></Route>
-          <Route path="/your-library">Your library</Route>
+          <Route path="/your-library" element={<CrearListaReprodruccion />}></Route>
           <Route path="/playlist/:id" element={<PlaylistPage />}></Route>
           <Route path="/search/playlist/:id" element={<PlaylistPage />}></Route>
         </Routes>
