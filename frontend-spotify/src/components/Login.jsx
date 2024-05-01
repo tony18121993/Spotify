@@ -44,6 +44,7 @@ const LoginPage = () => {
       // Guardar el token en el localStorage
       localStorage.setItem('token', token);
       // Guardar el tipo de usuario en el localStorage
+      localStorage.setItem('usuario', usuario.username);
       localStorage.setItem('tipo_usuario', usuario.tipo_usuario);
       // Redirigir a la página de inicio
       navigate('/inicio');
