@@ -8,7 +8,7 @@ import  CrearListaReprodruccion  from "./ListaRepodrucionCrear";
 const dataPlaylists = [
   {
     id: 101,
-    category_id: 3,
+    category_id: 1,
     name: 'Home playlist 1',
     img:
       'https://images.unsplash.com/photo-1587201572498-2bc131fbf113?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=924&q=80',
@@ -16,6 +16,30 @@ const dataPlaylists = [
   },
   {
     id: 102,
+    category_id: 1,
+    name: 'Home playlist 1',
+    img:
+      'https://images.unsplash.com/photo-1587201572498-2bc131fbf113?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=924&q=80',
+    desc: 'Lorem ipsum',
+  },
+  {
+    id: 103,
+    category_id: 1,
+    name: 'Home playlist 1',
+    img:
+      'https://images.unsplash.com/photo-1587201572498-2bc131fbf113?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=924&q=80',
+    desc: 'Lorem ipsum',
+  },
+  {
+    id: 104,
+    category_id: 3,
+    name: 'Home playlist 1',
+    img:
+      'https://images.unsplash.com/photo-1587201572498-2bc131fbf113?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=924&q=80',
+    desc: 'Lorem ipsum',
+  },
+  {
+    id: 105,
     category_id: 3,
     name: 'Home playlist 2',
     img:
@@ -23,7 +47,7 @@ const dataPlaylists = [
     desc: 'Lorem ipsum',
   },
   {
-    id: 103,
+    id: 106,
     category_id: 3,
     name: 'Home playlist 3',
     img:
@@ -31,7 +55,7 @@ const dataPlaylists = [
     desc: 'Lorem ipsum',
   },
   {
-    id: 103,
+    id: 107,
     category_id: 3,
     name: 'Home playlist 3',
     img:
@@ -39,7 +63,7 @@ const dataPlaylists = [
     desc: 'Lorem ipsum',
   },
   {
-    id: 103,
+    id: 108,
     category_id: 3,
     name: 'Home playlist 3',
     img:
@@ -47,7 +71,7 @@ const dataPlaylists = [
     desc: 'Lorem ipsum',
   },
   {
-    id: 103,
+    id: 109,
     category_id: 3,
     name: 'Home playlist 3',
     img:
@@ -55,7 +79,7 @@ const dataPlaylists = [
     desc: 'Lorem ipsum',
   },
   {
-    id: 103,
+    id: 110,
     category_id: 3,
     name: 'Home playlist 3',
     img:
@@ -63,7 +87,7 @@ const dataPlaylists = [
     desc: 'Lorem ipsum',
   },
   {
-    id: 103,
+    id: 111,
     category_id: 3,
     name: 'Home playlist 3',
     img:
@@ -71,7 +95,7 @@ const dataPlaylists = [
     desc: 'Lorem ipsum',
   },
   {
-    id: 103,
+    id: 112,
     category_id: 3,
     name: 'Home playlist 3',
     img:
@@ -79,7 +103,7 @@ const dataPlaylists = [
     desc: 'Lorem ipsum',
   },
   {
-    id: 103,
+    id: 113,
     category_id: 3,
     name: 'Home playlist 3',
     img:
@@ -87,7 +111,7 @@ const dataPlaylists = [
     desc: 'Lorem ipsum',
   },
   {
-    id: 103,
+    id: 114,
     category_id: 3,
     name: 'Home playlist 3',
     img:
@@ -95,23 +119,23 @@ const dataPlaylists = [
     desc: 'Lorem ipsum',
   },
   {
-    id: 103,
-    category_id: 3,
+    id: 115,
+    category_id: 4,
     name: 'Home playlist 3',
     img:
       'https://images.unsplash.com/photo-1587223075055-82e9a937ddff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
     desc: 'Lorem ipsum',
   },
   {
-    id: 103,
-    category_id: 3,
+    id: 116,
+    category_id: 4,
     name: 'Home playlist 3',
     img:
       'https://images.unsplash.com/photo-1587223075055-82e9a937ddff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
     desc: 'Lorem ipsum',
   },
   {
-    id: 104,
+    id: 117,
     category_id: 1,
     name: 'Focus playlist 1',
     img:
@@ -119,7 +143,7 @@ const dataPlaylists = [
     desc: 'Lorem ipsum',
   },
   {
-    id: 105,
+    id: 118,
     category_id: 4,
     name: 'Sunday playist',
     img:
@@ -127,7 +151,7 @@ const dataPlaylists = [
     desc: 'Lorem ipsum',
   },
   {
-    id: 106,
+    id: 119,
     category_id: 2,
     name: 'Mood playist 1 ',
     img:
@@ -135,7 +159,7 @@ const dataPlaylists = [
     desc: 'Lorem ipsum',
   },
   {
-    id: 107,
+    id: 120,
     category_id: 2,
     name: 'Mood playist 2',
     img:

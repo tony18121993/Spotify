@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { useParams } from 'react-router-dom';
 import { ReactComponent as PlayIcon } from '../../svgs/play.svg';
 import { ReactComponent as HeartIcon } from '../../svgs/heart.svg';
@@ -6,7 +6,8 @@ import { ReactComponent as NoteIcon } from '../../svgs/note.svg';
 
 const PlaylistPage = () => {
   // const { id } = useParams();
-
+  const [currentSongIndex, setCurrentSongIndex] = useState(null);
+  console.log(currentSongIndex);
   const playlistOptions = [
     {
       name: "Atrapado",
@@ -71,8 +72,8 @@ const PlaylistPage = () => {
             </div>
           </div>
           <ul className="songList">
-            {playlistOptions.map((song, index) => (
-              <li key={index}>
+          {playlistOptions.map((song, index) => (
+              <li key={index} onClick={() => { setCurrentSongIndex(index); }}>
                 <div className="songIcon">
                   <NoteIcon className="noteI" />
                   <PlayIcon className="playI" />

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const Player = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -65,7 +65,7 @@ const Player = () => {
   };
 
   // Manejar cambios en la canción actual
-  React.useEffect(() => {
+  useEffect(() => {
     audioRef.current.src = songs[currentSongIndex].source;
     if (isPlaying) {
       audioRef.current.play();
