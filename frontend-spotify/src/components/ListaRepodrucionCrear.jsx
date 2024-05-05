@@ -3,6 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import "./ListaReproduccionCrear.css";
 import { ReactComponent as PlayIcon } from "../svgs/play.svg";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const CrearListaReproduccion = () => {
   const [tipoUsuario, setTipoUsuario] = useState("");
@@ -85,6 +86,19 @@ const CrearListaReproduccion = () => {
     setShowCreateModal(false);
   };
 
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [formValid, setFormValid] = useState(false);
+
+  const validateForm = () => {
+    const isFormValid = Object.keys(errors).length === 0;
+    setFormValid(isFormValid);
+  };
+
+  const onSubmit = (data) => {
+    console.log(data);
+    handleUpgradePlan();
+  };
+
   return (
     <div className="crear-lista">
       {tipoUsuario === "gratuito" && (
@@ -122,50 +136,58 @@ const CrearListaReproduccion = () => {
      </div>
       )}
 
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton={false} className="modal-header">
-          <Modal.Title>Pásate a Premium</Modal.Title>
-          <div className="custom-close-icon" onClick={handleCloseModal}>
-            X
-          </div>
-        </Modal.Header>
-        <Modal.Body>
-          <p>El precio del plan Premium es de 10 euros al año.</p>
-          <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Introduce tus datos bancarios:</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Nombre del titular"
-                className="mb-2"
-              />
-              <Form.Control
-                type="text"
-                placeholder="Número de tarjeta"
-                className="mb-2"
-              />
-              <Form.Control
-                type="month"
-                placeholder="Fecha de expiración"
-                className="mb-2"
-              />
-              <Form.Control
-                type="text"
-                placeholder="Código de seguridad"
-                className="mb-2"
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Cancelar
-          </Button>
-          <Button variant="primary" onClick={handleUpgradePlan}>
-            Confirmar pago
-          </Button>
-        </Modal.Footer>
-      </Modal>
+<Modal show={showModal} onHide={handleCloseModal}>
+      <Modal.Header closeButton={false} className="modal-header">
+        <Modal.Title>Pásate a Premium</Modal.Title>
+        <div className="custom-close-icon" onClick={handleCloseModal}>
+          X
+        </div>
+      </Modal.Header>
+      <Modal.Body>
+        <p>El precio del plan Premium es de 10 euros al año.</p>
+        <Form onSubmit={handleSubmit(onSubmit)} onChange={validateForm}>
+          <Form.Group controlId="formBasicEmail">
+            <Form.Label>Introduce tus datos bancarios:</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Nombre del titular"
+              className="mb-2"
+              {...register('nombreTitular', { required: true, pattern: /^[A-Za-z ]{3,}$/ })}
+            />
+            {errors.nombreTitular && <span className="error">Por favor, introduce un nombre válido (mínimo 3 caracteres)</span>}
+            <Form.Control
+              type="text"
+              placeholder="Número de tarjeta"
+              className="mb-2"
+              {...register('numeroTarjeta', { required: true, pattern: /^[0-9]{16}$/ })}
+            />
+            {errors.numeroTarjeta && <span className="error">Por favor, introduce un número de tarjeta válido (16 dígitos)</span>}
+            <Form.Control
+              type="month"
+              placeholder="Fecha de expiración"
+              className="mb-2"
+              {...register('fechaExpiracion', { required: true })}
+            />
+            {errors.fechaExpiracion && <span className="error">Este campo es obligatorio</span>}
+            <Form.Control
+              type="text"
+              placeholder="Código de seguridad"
+              className="mb-2"
+              {...register('codigoSeguridad', { required: true, pattern: /^[0-9]{3}$/ })}
+            />
+            {errors.codigoSeguridad && <span className="error">Por favor, introduce un código de seguridad válido (3 dígitos)</span>}
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleCloseModal}>
+          Cancelar
+        </Button>
+        <Button variant="primary" onClick={handleSubmit(onSubmit)}>
+          Confirmar pago
+        </Button>
+      </Modal.Footer>
+    </Modal>
       {/* Modal para crear lista de reproducción */}
       <Modal show={showCreateModal} onHide={handleCloseCreateModal}>
         <Modal.Header closeButton>

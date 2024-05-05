@@ -57,7 +57,7 @@ const dataPlaylists = [
   {
     id: 107,
     category_id: 3,
-    name: 'Home playlist 3',
+    name: 'Home playlist 4',
     img:
       'https://images.unsplash.com/photo-1587223075055-82e9a937ddff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
     desc: 'Lorem ipsum',
@@ -65,7 +65,7 @@ const dataPlaylists = [
   {
     id: 108,
     category_id: 3,
-    name: 'Home playlist 3',
+    name: 'Home playlist 5',
     img:
       'https://images.unsplash.com/photo-1587223075055-82e9a937ddff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
     desc: 'Lorem ipsum',
@@ -73,7 +73,7 @@ const dataPlaylists = [
   {
     id: 109,
     category_id: 3,
-    name: 'Home playlist 3',
+    name: 'Home playlist 6',
     img:
       'https://images.unsplash.com/photo-1587223075055-82e9a937ddff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
     desc: 'Lorem ipsum',
@@ -81,7 +81,7 @@ const dataPlaylists = [
   {
     id: 110,
     category_id: 3,
-    name: 'Home playlist 3',
+    name: 'Home playlist 7',
     img:
       'https://images.unsplash.com/photo-1587223075055-82e9a937ddff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
     desc: 'Lorem ipsum',
@@ -89,7 +89,7 @@ const dataPlaylists = [
   {
     id: 111,
     category_id: 3,
-    name: 'Home playlist 3',
+    name: 'Home playlist 8',
     img:
       'https://images.unsplash.com/photo-1587223075055-82e9a937ddff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
     desc: 'Lorem ipsum',
@@ -97,7 +97,7 @@ const dataPlaylists = [
   {
     id: 112,
     category_id: 3,
-    name: 'Home playlist 3',
+    name: 'Home playlist 9',
     img:
       'https://images.unsplash.com/photo-1587223075055-82e9a937ddff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
     desc: 'Lorem ipsum',
@@ -105,7 +105,7 @@ const dataPlaylists = [
   {
     id: 113,
     category_id: 3,
-    name: 'Home playlist 3',
+    name: 'Home playlist 10',
     img:
       'https://images.unsplash.com/photo-1587223075055-82e9a937ddff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
     desc: 'Lorem ipsum',
@@ -113,7 +113,7 @@ const dataPlaylists = [
   {
     id: 114,
     category_id: 3,
-    name: 'Home playlist 3',
+    name: 'Home playlist 11',
     img:
       'https://images.unsplash.com/photo-1587223075055-82e9a937ddff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
     desc: 'Lorem ipsum',
@@ -121,7 +121,7 @@ const dataPlaylists = [
   {
     id: 115,
     category_id: 4,
-    name: 'Home playlist 3',
+    name: 'Home playlist 12',
     img:
       'https://images.unsplash.com/photo-1587223075055-82e9a937ddff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
     desc: 'Lorem ipsum',
@@ -129,7 +129,7 @@ const dataPlaylists = [
   {
     id: 116,
     category_id: 4,
-    name: 'Home playlist 3',
+    name: 'Home playlist 13',
     img:
       'https://images.unsplash.com/photo-1587223075055-82e9a937ddff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2700&q=80',
     desc: 'Lorem ipsum',

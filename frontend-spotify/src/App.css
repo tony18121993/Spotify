@@ -318,6 +318,10 @@ body {
   margin-bottom: 0;
 }
 
+.cardsWrap h3 {
+  color: #888;
+}
+
 .cardsWrap .cardsWrapInner {
   display: grid;
   grid-gap: 16px;
