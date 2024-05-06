@@ -152,8 +152,6 @@ body {
   cursor: pointer;
 }
 
-
-
 .language-icon {
   margin-right: 5px;
 }
@@ -166,6 +164,7 @@ body {
   padding: 8px; 
   appearance: none; 
   cursor: pointer;
+  
 }
 .language option{
   padding: 20px;
@@ -536,6 +535,11 @@ ul.songList li .songIcon svg {
   fill: white;
 }
 
+.add-button {
+  background-color: transparent;
+  border: none;
+  color: #1db954;
+}
 
 
 /* Estilos para la barra de desplazamiento */

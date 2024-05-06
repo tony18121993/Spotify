@@ -14,11 +14,11 @@ const Nav = () => {
   };
 
   const handleLogout = () => {
-    // Eliminar el token del localStorage
+    // Eliminar los items del localStorage
+    localStorage.removeItem('usuario');
     localStorage.removeItem("token");
     localStorage.removeItem("tipo_usuario");
-    // Redirigir al usuario a la página de inicio de sesión
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -56,7 +56,6 @@ const Nav = () => {
         </Link>
       </ul>
       <div className="cookies">
-       
         <div className="language-selection">
           <button
             data-testid="language-selection-button"
@@ -84,7 +83,9 @@ const Nav = () => {
               <option value="en">English</option>
             </select>
           </button>
-          <button className='boton-close' onClick={handleLogout}>Cerrar Sesion</button>
+          <button className="boton-close" onClick={handleLogout}>
+            Cerrar Sesion
+          </button>
         </div>
       </div>
     </div>

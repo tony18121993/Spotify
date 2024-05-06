@@ -17,7 +17,7 @@ const dataPlaylists = [
   {
     id: 102,
     category_id: 1,
-    name: 'Home playlist 1',
+    name: 'Home playlist 15',
     img:
       'https://images.unsplash.com/photo-1587201572498-2bc131fbf113?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=924&q=80',
     desc: 'Lorem ipsum',
@@ -25,7 +25,7 @@ const dataPlaylists = [
   {
     id: 103,
     category_id: 1,
-    name: 'Home playlist 1',
+    name: 'Home playlist 16',
     img:
       'https://images.unsplash.com/photo-1587201572498-2bc131fbf113?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=924&q=80',
     desc: 'Lorem ipsum',
@@ -33,7 +33,7 @@ const dataPlaylists = [
   {
     id: 104,
     category_id: 3,
-    name: 'Home playlist 1',
+    name: 'Home playlist 17',
     img:
       'https://images.unsplash.com/photo-1587201572498-2bc131fbf113?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=924&q=80',
     desc: 'Lorem ipsum',

@@ -11,7 +11,7 @@ const CrearListaReproduccion = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [listaReproduccion, setListaReproduccion] = useState("");
   const [listasUsuario, setListasUsuario] = useState([]);
-  const usuario = localStorage.getItem("usuario"); // Obtener el nombre de usuario del localStorage
+  const usuario = localStorage.getItem("usuario"); 
 
   useEffect(() => {
     const tipoUsuarioGuardado = localStorage.getItem("tipo_usuario");
@@ -82,7 +82,6 @@ const CrearListaReproduccion = () => {
       canciones: ["Canción 1", "Canción 2", "Canción 3"],
     };
     setListasUsuario([...listasUsuario, nuevaLista]);
-    console.log("Lista de reproducción guardada:", nuevaLista);
     setShowCreateModal(false);
   };
 
@@ -95,7 +94,7 @@ const CrearListaReproduccion = () => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
+    
     handleUpgradePlan();
   };
 

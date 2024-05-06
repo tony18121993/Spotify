@@ -26,6 +26,20 @@ const Player = () => {
       cover: 'https://www.theproject.es/archivos/izal.jpg',
       source: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
     },
+    {
+      title: 'Bohemian Rhapsody',
+      artist: 'Queen',
+      album: 'A Night at the Opera',
+      cover: 'https://th.bing.com/th/id/R.635d9b3d53354b824ae097ebb61d04e3?rik=rN963ykGvcLuug&pid=ImgRaw&r=0',
+      source: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+    },
+    {
+      title: 'Hotel California',
+      artist: 'Eagles',
+      album: 'Hotel California',
+      cover: 'https://img.discogs.com/62TIXCoioV2sttD_Go7G1AwiRYs=/fit-in/600x608/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-11176377-1511277884-5662.mpo.jpg',
+      source: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+    },
   ]);
   const audioRef = useRef(new Audio());
 

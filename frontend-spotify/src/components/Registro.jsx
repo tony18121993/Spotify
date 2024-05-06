@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import './Registrostyles.css'; 
+import { useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [errorMessage, setErrorMessage] = useState('');
+  const history = useNavigate();
 
   const onSubmit = (data) => {
     // Aquí puedes realizar la lógica para enviar los datos del formulario al backend
     console.log(data);
     // Simplemente mostraremos un mensaje de éxito
     alert('¡Registro exitoso!');
+    history("/");
   };
 
   return (
@@ -20,7 +23,7 @@ const RegisterPage = () => {
         <h2>Regístrate</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="row g-3">
           <div className="col-md-6">
-            <input type="text" className="input-field" placeholder="Email" {...register('email', { required: true })} />
+            <input type="text" className="input-field" placeholder="Email" {...register('email', { required: true, pattern: /^\S+@\S+$/i })} />
             {errors.email && <span className="error">Email requerido</span>}
           </div>
           <div className="col-md-6">
@@ -28,20 +31,21 @@ const RegisterPage = () => {
             {errors.username && <span className="error">Nombre de usuario requerido</span>}
           </div>
           <div className="col-md-6">
-            <input type="password" className="input-field" placeholder="Contraseña" {...register('password', { required: true })} />
-            {errors.password && <span className="error">Contraseña requerida</span>}
+            <input type="password" className="input-field" placeholder="Contraseña" {...register('password', { required: true, minLength: 4 })} />
+            {errors.password && errors.password.type === "required" && <span className="error">Contraseña requerida</span>}
+            {errors.password && errors.password.type === "minLength" && <span className="error">La contraseña debe tener al menos 4 caracteres</span>}
           </div>
           <div className="col-md-6">
             <input type="text" className="input-field" placeholder="Dirección" {...register('direccion', { required: true })} />
             {errors.direccion && <span className="error">Dirección requerida</span>}
           </div>
           <div className="col-md-6">
-            <input type="text" className="input-field" placeholder="Teléfono" {...register('telefono', { required: true })} />
-            {errors.telefono && <span className="error">Teléfono requerido</span>}
+            <input type="text" className="input-field" placeholder="Teléfono" {...register('telefono', { required: true, pattern: /^[0-9]+$/ })} />
+            {errors.telefono && <span className="error">Teléfono requerido (solo números)</span>}
           </div>
           <div className="col-md-6">
-            <input type="text" className="input-field" placeholder="Fecha de nacimiento" {...register('fecha_nacimiento', { required: true })} />
-            {errors.fecha_nacimiento && <span className="error">Fecha de nacimiento requerida</span>}
+            <input type="text" className="input-field" placeholder="Fecha de nacimiento" {...register('fecha_nacimiento', { required: true, pattern: /^\d{4}-\d{2}-\d{2}$/ })} />
+            {errors.fecha_nacimiento && <span className="error">Fecha de nacimiento requerida (formato: YYYY-MM-DD)</span>}
           </div>
           <div className="col-md-6">
             <input type="text" className="input-field" placeholder="Nombre" {...register('nombre', { required: true })} />
