@@ -8,12 +8,28 @@ const RegisterPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const history = useNavigate();
 
-  const onSubmit = (data) => {
-    // Aquí puedes realizar la lógica para enviar los datos del formulario al backend
-    console.log(data);
-    // Simplemente mostraremos un mensaje de éxito
-    alert('¡Registro exitoso!');
-    history("/");
+  const onSubmit = async (data) => {
+    try {
+      console.log(data)
+      const response = await fetch('http://localhost:5186/usuario/crearusuario', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Fallo al registarte');
+      }
+
+      alert('¡Enhorabuena te has registrado en Spotify!');
+      history("/");
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
   };
 
   return (
@@ -22,10 +38,6 @@ const RegisterPage = () => {
         <img src="https://www.scdn.co/i/_global/open-graph-default.png" alt="Spotify Logo" className="spotify-logo" />
         <h2>Regístrate</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="row g-3">
-          <div className="col-md-6">
-            <input type="text" className="input-field" placeholder="Email" {...register('email', { required: true, pattern: /^\S+@\S+$/i })} />
-            {errors.email && <span className="error">Email requerido</span>}
-          </div>
           <div className="col-md-6">
             <input type="text" className="input-field" placeholder="Nombre de usuario" {...register('username', { required: true })} />
             {errors.username && <span className="error">Nombre de usuario requerido</span>}
@@ -36,8 +48,8 @@ const RegisterPage = () => {
             {errors.password && errors.password.type === "minLength" && <span className="error">La contraseña debe tener al menos 4 caracteres</span>}
           </div>
           <div className="col-md-6">
-            <input type="text" className="input-field" placeholder="Dirección" {...register('direccion', { required: true })} />
-            {errors.direccion && <span className="error">Dirección requerida</span>}
+            <input type="text" className="input-field" placeholder="Email" {...register('email', { required: true, pattern: /^\S+@\S+$/i })} />
+            {errors.email && <span className="error">Email requerido</span>}
           </div>
           <div className="col-md-6">
             <input type="text" className="input-field" placeholder="Teléfono" {...register('telefono', { required: true, pattern: /^[0-9]+$/ })} />
@@ -52,8 +64,8 @@ const RegisterPage = () => {
             {errors.nombre && <span className="error">Nombre requerido</span>}
           </div>
           <div className="col-md-6">
-            <input type="text" className="input-field" placeholder="Apellido" {...register('apellido', { required: true })} />
-            {errors.apellido && <span className="error">Apellido requerido</span>}
+            <input type="text" className="input-field" placeholder="Apellidos" {...register('apellidos', { required: true })} />
+            {errors.apellidos && <span className="error">Apellidos requerido</span>}
           </div>
           <div className="col-12">
             <button type="submit" className="register-button">Registrarse</button>

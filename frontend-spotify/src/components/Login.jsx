@@ -3,54 +3,53 @@ import { useForm } from 'react-hook-form';
 import './Loginstyle.css';
 import { useNavigate } from 'react-router-dom';
 
-// Función para generar un token aleatorio
-function generateToken() {
-  // Longitud del token
-  const tokenLength = 20;
-  // Caracteres posibles para el token
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  let token = '';
-  // Generar el token aleatorio
-  for (let i = 0; i < tokenLength; i++) {
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    token += characters[randomIndex];
-  }
-  return token;
-}
-
-
-const usuarios = [
-  { username: 'pepe', password: 'pepe', tipo_usuario: 'premium' },
-  { username: 'maria', password: 'maria', tipo_usuario: 'gratuito' },
-  { username: 'juan', password: 'juan123', tipo_usuario: 'premium' },
-  { username: 'laura', password: 'laura123', tipo_usuario: 'gratuito' },
-  { username: 'carlos', password: 'carlos123', tipo_usuario: 'premium' },
-  { username: 'ana', password: 'ana123', tipo_usuario: 'gratuito' }
-];
-
-
 const LoginPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
 
-  const onSubmit = (data) => {
-    // Buscar el usuario ingresado en el array de usuarios
-    const usuario = usuarios.find(u => u.username === data.username && u.password === data.password);
-    
-    if (usuario) {
-      // Si el usuario es encontrado, generar un token aleatorio
-      const token = generateToken();
-      // Guardar el token en el localStorage
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch('http://localhost:5186/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to login');
+      }
+
+      const responseData = await response.json();
+      const token = responseData.token;
       localStorage.setItem('token', token);
-      // Guardar el tipo de usuario en el localStorage
-      localStorage.setItem('usuario', usuario.username);
-      localStorage.setItem('tipo_usuario', usuario.tipo_usuario);
-      // Redirigir a la página de inicio
-      navigate('/inicio');
-    } else {
-      // Si el usuario no es encontrado, mostrar un mensaje de error
-      setErrorMessage('Nombre de usuario o contraseña incorrectos');
+
+      const tipousuarioResponse = await fetch("http://localhost:5186/usuario/administrador", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!tipousuarioResponse.ok) {
+        throw new Error('Failed to fetch user type');
+      }
+
+      const tipousuarioData = await tipousuarioResponse.json();
+      
+      const isAdmin = tipousuarioData.tipoUsuario;
+
+      if (isAdmin) {
+        localStorage.removeItem('token');
+        window.location.href = `http://localhost:5186`;
+      } else {
+        navigate('/inicio');
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
     }
   };
 

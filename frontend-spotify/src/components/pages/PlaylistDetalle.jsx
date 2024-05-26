@@ -4,9 +4,9 @@ import { ReactComponent as PlayIcon } from "../../svgs/play.svg";
 import { ReactComponent as HeartIcon } from "../../svgs/heart.svg";
 import { ReactComponent as NoteIcon } from "../../svgs/note.svg";
 
-const PlaylistPage = () => {
+const PlaylistPage = ({ setCurrentSongIndex }) => {
   // const { id } = useParams();
-  const [currentSongIndex, setCurrentSongIndex] = useState(null);
+  
   const [showPopup, setShowPopup] = useState(false); // Estado para controlar la visibilidad del popup
   const [userType, setUserType] = useState(""); // Estado para almacenar el tipo de usuario
 

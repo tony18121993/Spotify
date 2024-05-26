@@ -63,7 +63,7 @@ body {
 /* Componentes */
 .App {
   height: 80vh;
-  background: var(--greyLight) ;
+  background: var(--greyLight);
   display: flex;
 }
 
@@ -116,11 +116,9 @@ body {
   margin-right: 15px;
 }
 
-.navBar ul li{
+.navBar ul li {
   color: var(--greyText)
 }
-
-
 
 .navBar ul li.active {
   background: var(--greyLighter);
@@ -129,7 +127,7 @@ body {
 
 .navBar ul li:hover {
   color: white;
-} 
+}
 
 .navBar .cookies {
   font-size: 0.6rem;
@@ -144,9 +142,9 @@ body {
   color: white;
   display: flex;
   align-items: center;
-  justify-content: center; 
-  border: none; 
-  width:  180px;
+  justify-content: center;
+  border: none;
+  width: 180px;
   height: 40px;
   font-size: 18px;
   cursor: pointer;
@@ -155,18 +153,19 @@ body {
 .language-icon {
   margin-right: 5px;
 }
+
 .language {
   width: 100%;
   background-color: transparent;
   color: white;
   border: none;
   font-size: 16px;
-  padding: 8px; 
-  appearance: none; 
+  padding: 8px;
+  appearance: none;
   cursor: pointer;
-  
 }
-.language option{
+
+.language option {
   padding: 20px;
   background-color: var(--greyLighter);
   color: white;
@@ -176,12 +175,13 @@ body {
   outline: none;
 }
 
-.boton-close { background-color: transparent;
+.boton-close {
+  background-color: transparent;
   font-size: 1rem;
   text-decoration: none;
   color: white;
-  width: 100%; 
-  text-align: start; 
+  width: 100%;
+  text-align: start;
   cursor: pointer;
   border: none;
 }
@@ -231,36 +231,36 @@ body {
   flex-grow: 1;
   margin-right: 10px;
   width: 100%;
-  
 }
+
 .control-button {
   background-color: transparent;
   color: white;
   border: none;
-  font-size: 28px; 
-  border-radius: 50px; 
-  padding: 10px 20px; 
+  font-size: 28px;
+  border-radius: 50px;
+  padding: 10px 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
 }
 
 .control-button:hover {
-  background-color: rgba(255, 255, 255, 0.2); 
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .volume-button {
   background-color: transparent;
   color: white;
   border: none;
-  font-size: 28px; 
-  border-radius: 50px; 
-  padding: 10px 20px; 
+  font-size: 28px;
+  border-radius: 50px;
+  padding: 10px 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease; 
+  transition: background-color 0.3s ease;
 }
 
 .volume-button:hover {
-  background-color: rgba(255, 255, 255, 0.2); 
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .musicControls {
@@ -355,7 +355,7 @@ body {
   box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
- .cardImage img {
+.cardImage img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -400,7 +400,6 @@ body {
 }
 
 .playlistPage .mainInner {
- 
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), #121212 40%);
   width: 100%;
   display: flex;
@@ -541,7 +540,6 @@ ul.songList li .songIcon svg {
   color: #1db954;
 }
 
-
 /* Estilos para la barra de desplazamiento */
 ::-webkit-scrollbar {
   width: 10px; /* Ancho de la barra de desplazamiento */
@@ -562,3 +560,133 @@ ul.songList li .songIcon svg {
 ::-webkit-scrollbar-thumb:hover {
   background-color: #555; /* Nuevo color del mango (scrollbar) al pasar el mouse */
 }
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .App {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .navBar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    margin-top: 80px;
+  }
+
+  .logo{
+    min-width: 28%;
+  }
+
+ 
+  .navBar ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .navBar ul li {
+    flex: 1;
+    text-align: center;
+  }
+
+  .upperNav {
+    padding: 0.5rem 1rem;
+  }
+
+  .main {
+    min-height: 30vh;
+    padding-top: 4.5rem;
+    margin-bottom: 80px;
+  }
+
+  .main .mainContent .mainInner {
+    padding: 0.5rem 1rem;
+  }
+
+  .cardsWrap .cardsWrapInner {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  .player {
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .album-cover {
+    margin: 0 auto 10px;
+  }
+
+  .song-info, .progress-controls {
+    width: 100%;
+  }
+
+  .progress-bar {
+    width: 90%;
+    margin: 10px auto;
+  }
+
+  .player-controls {
+    margin: 10px 0;
+  }
+
+  
+
+  .playlistPage .playlistPageContent h1 {
+    font-size: 3rem;
+    word-spacing: normal;
+    letter-spacing: normal;
+  }
+}
+
+@media (max-width: 480px) {
+  .navBar{
+    margin-top: 80px;
+  }
+  .navBar ul li {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+
+  .navBar .cookies {
+    font-size: 0.5rem;
+  }
+
+  .language-button {
+    width: 150px;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .language {
+    font-size: 14px;
+  }
+  .main{
+    margin-bottom: 30px;
+  }
+
+  .player {
+    padding: 10px;
+    margin-top: 100px;
+  }
+
+  .control-button, .volume-button {
+    font-size: 24px;
+    padding: 5px 10px;
+  }
+
+  .progress-bar {
+    width: 80%;
+    margin: 5px auto;
+  }
+
+  .playlistPage .playlistPageContent h1 {
+    font-size: 2.5rem;
+  }
+}
+
+

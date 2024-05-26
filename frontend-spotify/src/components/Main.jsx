@@ -167,21 +167,21 @@ const dataPlaylists = [
     desc: 'Lorem ipsum',
   },
 ]
-export function Main() {
+export function Main({ setCurrentSongIndex }) {
   return (
     <div className="main">
       <div className="upperNav">Bienvenido a Spotify Music</div>
       <div className="mainContent">
-      <Routes>
-          <Route path="/"  element={<Categories />}></Route>
-          <Route path="/search" element={<SearchBar dataPlaylists={dataPlaylists} />}></Route>
-          <Route path="/your-library" element={<CrearListaReprodruccion />}></Route>
-          <Route path="/playlist/:id" element={<PlaylistPage />}></Route>
-          <Route path="/search/playlist/:id" element={<PlaylistPage />}></Route>
+        <Routes>
+          <Route path="/" element={<Categories />} />
+          <Route path="/search" element={<SearchBar dataPlaylists={dataPlaylists} />} />
+          <Route path="/your-library" element={<CrearListaReprodruccion />} />
+          <Route path="/playlist/:id" element={<PlaylistPage setCurrentSongIndex={setCurrentSongIndex} />} /> {/* Pasar la función setCurrentSongIndex como prop */}
+          <Route path="/search/playlist/:id" element={<PlaylistPage setCurrentSongIndex={setCurrentSongIndex} />} /> {/* Pasar la función setCurrentSongIndex como prop */}
         </Routes>
       </div>
     </div>
   );
-};
+}
 
 

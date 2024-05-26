@@ -11,41 +11,40 @@ const CrearListaReproduccion = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [listaReproduccion, setListaReproduccion] = useState("");
   const [listasUsuario, setListasUsuario] = useState([]);
-  const usuario = localStorage.getItem("usuario"); 
+  const usuario = localStorage.getItem("usuario");
 
   useEffect(() => {
-    const tipoUsuarioGuardado = localStorage.getItem("tipo_usuario");
-    if (tipoUsuarioGuardado) {
-      setTipoUsuario(tipoUsuarioGuardado);
-    }
+    const fetchTipoUsuario = async () => {
+      try {
+        const response = await fetch("http://localhost:5186/usuario/tipo", {
+          method: "Post",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          
+          setTipoUsuario(data.tipoUsuario);
+        
+        } else {
+          console.error("Error al obtener el tipo de usuario:", response.status);
+        }
+      } catch (error) {
+        console.error("Error al obtener el tipo de usuario:", error);
+      }
+    };
 
-    const listasUsuarioGuardadas = [
-      {
-        propietario: "pepe",
-        nombreLista: "Lista 1",
-        img: "https://images.unsplash.com/photo-1587169544748-d21bd810f57e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80",
-        canciones: ["Canción 1", "Canción 2", "Canción 3"],
-      },
-      {
-        propietario: "juan",
-        nombreLista: "Lista 2",
-        img: "https://images.unsplash.com/photo-1587169544748-d21bd810f57e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80",
-        canciones: ["Canción 4", "Canción 5", "Canción 6"],
-      },
-      {
-        propietario: "pepe",
-        nombreLista: "Lista 3",
-        img: "https://images.unsplash.com/photo-1587169544748-d21bd810f57e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80",
-        canciones: ["Canción 7", "Canción 8", "Canción 9"],
-      },
-    ];
+    fetchTipoUsuario();
 
+    // Resto del código para obtener y filtrar las listas de reproducción del usuario...
+  }, [tipoUsuario]);
     // Filtrar las listas de reproducción del usuario actual
-    const listasUsuarioFiltradas = listasUsuarioGuardadas.filter(
-      (lista) => lista.propietario === usuario
-    );
-    setListasUsuario(listasUsuarioFiltradas);
-  }, [usuario]);
+  //   const listasUsuarioFiltradas = listasUsuarioGuardadas.filter(
+  //     (lista) => lista.propietario === usuario
+  //   );
+  //   setListasUsuario(listasUsuarioFiltradas);
+  // }, [usuario]);
 
   const handleChangePlan = () => {
     setShowModal(true);
@@ -100,13 +99,13 @@ const CrearListaReproduccion = () => {
 
   return (
     <div className="crear-lista">
-      {tipoUsuario === "gratuito" && (
+      {tipoUsuario === false && (
         <div>
           <p>No puedes crear listas de reproducción. </p>
           <button onClick={handleChangePlan}>Pásate a Premium</button>
         </div>
       )}
-      {tipoUsuario === "premium" && (
+      {tipoUsuario === true && (
        <div>
        <h3>Crea tu lista de reproducción</h3>
        <button onClick={handleCrearLista}>Crear Lista de Reproducción</button>
