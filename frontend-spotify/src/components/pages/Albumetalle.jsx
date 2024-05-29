@@ -4,7 +4,7 @@ import { ReactComponent as PlayIcon } from "../../svgs/play.svg";
 import { ReactComponent as HeartIcon } from "../../svgs/heart.svg";
 import { ReactComponent as NoteIcon } from "../../svgs/note.svg";
 
-const CancionesPlaylist = ({ setCurrentSongIndex }) => {
+const PlaylistPage = ({ setCurrentSongIndex }) => {
   // const { id } = useParams();
   
   const [showPopup, setShowPopup] = useState(false); // Estado para controlar la visibilidad del popup
@@ -138,4 +138,4 @@ const CancionesPlaylist = ({ setCurrentSongIndex }) => {
   );
 };
 
-export default CancionesPlaylist;
+export default PlaylistPage;

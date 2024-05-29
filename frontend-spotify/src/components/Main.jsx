@@ -1,9 +1,11 @@
 import React from "react";
 import Categories from "./Categories";
-import PlaylistPage from "./pages/PlaylistDetalle";
+import PlaylistPage from "./pages/Albumetalle";
 import { Route, Routes } from "react-router-dom";
 import SearchBar from "./Search";
 import  CrearListaReprodruccion  from "./ListaRepodrucionCrear";
+
+import AlbumArtista from "./AlbumsArtista";
 
 const dataPlaylists = [
   {
@@ -176,6 +178,7 @@ export function Main({ setCurrentSongIndex }) {
           <Route path="/" element={<Categories />} />
           <Route path="/search" element={<SearchBar dataPlaylists={dataPlaylists} />} />
           <Route path="/your-library" element={<CrearListaReprodruccion />} />
+          <Route path="/artista/:idArtista" element={<AlbumArtista />} />
           <Route path="/playlist/:id" element={<PlaylistPage setCurrentSongIndex={setCurrentSongIndex} />} /> {/* Pasar la función setCurrentSongIndex como prop */}
           <Route path="/search/playlist/:id" element={<PlaylistPage setCurrentSongIndex={setCurrentSongIndex} />} /> {/* Pasar la función setCurrentSongIndex como prop */}
         </Routes>

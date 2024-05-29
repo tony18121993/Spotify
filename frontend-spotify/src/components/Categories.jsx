@@ -1,63 +1,67 @@
-import React, { useRef, useEffect, useState } from 'react'
-import Playlists from './Playlists'
+import React, { useRef, useEffect, useState } from 'react';
+import Artistas from './Artistas'; // Asegúrate de que la ruta sea correcta
+import Playlist from './Playlist';
 
 const Categories = () => {
-  const [limiter, setLimiter] = useState(0)
-  const mainInnerRef = useRef()
-  const dataCategories = [
-    {
-      id: 1,
-      name: 'Concentrate',
-      tagline: 'Musica para concentrarte',
-    },
-    {
-      id: 2,
-      name: 'Estado de ánimo',
-      tagline: 'Listas de reproducción para coincidir con tu estado de ánimo',
-    },
-    {
-      id: 3,
-      name: 'Dale un sonido a tu hogar',
-      tagline: '',
-    },
-    {
-      id: 4,
-      name: 'Relájate este domingo',
-    },
-  ]
+  const [limiter, setLimiter] = useState(0);
+  const [artists, setArtists] = useState([]);
+  const [playlists, setPlaylists] = useState([]);
+  const mainInnerRef = useRef();
 
   useEffect(() => {
-    // function
+    const fetchArtists = async () => {
+      try {
+        const response = await fetch('http://localhost:5186/ArtistasTodos');
+        const data = await response.json();
+        setArtists(data);
+      } catch (error) {
+        console.error('Error fetching artists:', error);
+      }
+    };
+
+    const fetchPlaylists = async () => {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await fetch('http://localhost:5186/ObtenerListasPublicas', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        setPlaylists(data);
+      } catch (error) {
+        console.error('Error fetching playlists:', error);
+      }
+    };
+
+    fetchArtists();
+    fetchPlaylists();
+
     const handleWindowResize = () => {
-      // calculation
-      const calculation = Math.floor(
-        mainInnerRef.current.getBoundingClientRect().width / 195
-      )
+      const calculation = Math.floor(mainInnerRef.current.getBoundingClientRect().width / 195);
+      setLimiter(calculation);
+    };
 
-      setLimiter(calculation)
-    }
-
-    handleWindowResize()
-
-    // assign event listener
-    window.addEventListener('resize', handleWindowResize)
-
-    // remove event listener
-    return () => window.removeEventListener('resize', handleWindowResize)
-  }, [])
+    handleWindowResize();
+    window.addEventListener('resize', handleWindowResize);
+    return () => window.removeEventListener('resize', handleWindowResize);
+  }, []);
 
   return (
     <div className="mainInner" ref={mainInnerRef}>
-      {dataCategories.map((category, id) => (
-        <div className="cardsWrap" key={id}>
-          <h2>{category.name}</h2>
-          {/* <span className="seeAll">SEE ALL</span> */}
-          <p className="subText">{category.tagline}</p>
-          <Playlists category_id={category.id} limiter={limiter} />
-        </div>
-      ))}
-    </div>
-  )
-}
+      <div className="cardsWrap">
+        <h2>Artistas</h2>
+        <Artistas items={artists} type="playlist" />
+      </div>
 
-export default Categories
+      <div className="cardsWrap">
+        <h2>Listas de Reproducción</h2>
+        <Playlist items={playlists} type="playlist" />
+      </div>
+    </div>
+  );
+};
+
+export default Categories;
