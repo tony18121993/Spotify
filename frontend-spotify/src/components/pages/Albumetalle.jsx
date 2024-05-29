@@ -1,62 +1,106 @@
 import React, { useState, useEffect } from "react";
-// import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import { ReactComponent as PlayIcon } from "../../svgs/play.svg";
 import { ReactComponent as HeartIcon } from "../../svgs/heart.svg";
 import { ReactComponent as NoteIcon } from "../../svgs/note.svg";
 
-const PlaylistPage = ({ setCurrentSongIndex }) => {
-  // const { id } = useParams();
-  
-  const [showPopup, setShowPopup] = useState(false); // Estado para controlar la visibilidad del popup
-  const [userType, setUserType] = useState(""); // Estado para almacenar el tipo de usuario
+const PlaylistPage = ({ setCurrentSongIndex,setnumeroalbum }) => {
+  const { id } = useParams();
+  const [album, setAlbum] = useState(null);
+  const [songs, setSongs] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
+  const [userPremium, setUserPremium] = useState(false);
+  const [playlists, setPlaylists] = useState([]);
+  const [selectedSong, setSelectedSong] = useState(null);
+  const [message, setMessage] = useState(""); // Estado para almacenar el mensaje de la respuesta del servidor
 
   useEffect(() => {
-    // Obteniendo el tipo de usuario del localStorage
-    const tipo_usuario = localStorage.getItem("tipo_usuario");
-    setUserType(tipo_usuario);
-  }, []);
+    const token = localStorage.getItem('token');
+    const fetchAlbumData = async () => {
+      try {
+        const response = await fetch(`http://localhost:5186/CancionesporAlbum/${id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        setAlbum(data[0]);
+        setSongs(data[0].canciones);
+        
+        setUserPremium(data[0].userPremium);
+      } catch (error) {
+        console.error('Error fetching album data:', error);
+      }
+    };
 
-  const playlistOptions = [
-    {
-      name: 'Fuego',
-      artist: 'Estopa',
-      duration: '4:07',
-    },
-    {
-      name: 'American Idiot',
-      artist: 'Greenday',
-      duration: '3:45',
-    },
-    {
-      name: 'El paraiso',
-      artist: 'Izal',
-      duration: '5:02',
-    },
-    {
-      name: 'Bohemian Rhapsody',
-      artist: 'Queen',
-      duration: '6:07',
-    },
-    {
-      name: 'Hotel California',
-      artist: 'Eagles',
-      duration: '6:30',
-    },
-  ];
+    fetchAlbumData();
+  }, [id,message]);
 
-  const handleAddToPlaylist = () => {
-    if (userType === "premium") {
-      setShowPopup(true);
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 2000);
+  const handleAddToPlaylist = async (song) => {
+    if (userPremium) {
+      const token = localStorage.getItem('token');
+      try {
+        const response = await fetch('http://localhost:5186/ObtenerListasUsuario', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        setPlaylists(data);
+        setSelectedSong(song);
+        setShowPopup(true);
+      } catch (error) {
+        console.error('Error fetching playlists:', error);
+      }
     } else {
-      setShowPopup(true); 
+      setShowPopup(true);
       setTimeout(() => {
         setShowPopup(false);
       }, 2000);
     }
   };
+
+  const handleAddSongToPlaylist = async (playlistId) => {
+    
+    
+    const token = localStorage.getItem('token');
+    try {
+      const response = await fetch(`http://localhost:5186/AnadirCancionAPlaylist`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ IdLista: playlistId, IdCancion: selectedSong.idCancion })
+      });
+      const data = await response.json();
+      if (response.ok) {
+       
+        setMessage(data.message); 
+        console.log(message)
+        // setShowPopup(false);
+        
+      } else {
+        setMessage(data.message); 
+        console.log(data.message)
+      }
+    } catch (error) {
+      console.error('Error adding song to playlist:', error);
+    }
+  };
+
+  const handleClosePopup = () => {
+    setMessage("")
+    setShowPopup(false);
+  };
+
+  if (!album) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="playlistPage">
@@ -64,21 +108,17 @@ const PlaylistPage = ({ setCurrentSongIndex }) => {
         <div className="playlistPageInfo">
           <div className="playlistPageImage">
             <img
-              src="https://images.unsplash.com/photo-1587201572498-2bc131fbf113?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=924&q=80"
-              alt="pic"
+              src={album.imagen}
+              alt={album.nombre}
             />
           </div>
           <div className="playlistPageContent">
-            <p className="smallText uppercase bold">Playlist</p>
-            <h1>Lofi </h1>
-            <p className="tagline">
-              Minimalismo, electrónica y música clásica moderna para
-              concentrarse
-            </p>
+            <p className="smallText uppercase bold">Álbum</p>
+            <h1>{album.nombre}</h1>
+            <p className="tagline">{album.genero}</p>
             <div className="playlistPageDesc">
-              <p className="spotify">Música</p>
-              <span>699,428 likes</span>
-              <span>4hr 35 min</span>
+              <p className="spotify">{album.descripcion}</p>
+              <span>{songs.length} canciones</span>
             </div>
           </div>
         </div>
@@ -95,12 +135,39 @@ const PlaylistPage = ({ setCurrentSongIndex }) => {
             </div>
           </div>
           <ul className="songList">
-            {showPopup && <div className="popup my-4">{userType === "premium" ? "Canción añadida a tu playlist personal" : "No eres usuario premium, no puedes crear listas de reproducción."}</div>}
-            {playlistOptions.map((song, index) => (
+            {showPopup && (
+              <>
+                <div className="overlay" onClick={handleClosePopup}></div>
+                <div className="popup my-4">
+                  <button className="close-btn" onClick={handleClosePopup}>&times;</button>
+                  {
+                    message ? (<p className="message">{message}</p>) :null
+
+                  }
+                  {userPremium ? (
+                    <div>
+                      <h3>Elige una de tus listas de reproducción </h3>
+                      <ul>
+                        {playlists.map((playlist) => (
+                          <li key={playlist.idLista} onClick={() => handleAddSongToPlaylist(playlist.idLista)}>
+                            {playlist.nombre}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <p className="premium-message">No eres usuario premium, no puedes crear listas de reproducción.</p>
+                  )}
+                 
+                </div>
+              </>
+            )}
+            {songs.map((song, index) => (
               <li
                 key={index}
                 onClick={() => {
                   setCurrentSongIndex(index);
+                  setnumeroalbum(id);
                 }}
               >
                 <div className="songIcon">
@@ -108,23 +175,23 @@ const PlaylistPage = ({ setCurrentSongIndex }) => {
                   <PlayIcon className="playI" />
                 </div>
                 <div className="songDetails">
-                  <h3>{song.name}</h3>
-                  <span>{song.artist}</span>
+                  <h3>{song.nombre}</h3>
+                  <span>{song.artista}</span>
                 </div>
                 <div className="songTime">
-                  <span>{song.duration}</span>
+                  <span>{song.duracion}</span>
                 </div>
-                <button className="add-button" onClick={handleAddToPlaylist}>
+                <button className="add-button" onClick={() => handleAddToPlaylist(song)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
                     height="16"
                     fill="currentColor"
-                    classname="bi bi-plus-lg"
+                    className="bi bi-plus-lg"
                     viewBox="0 0 16 16"
                   >
                     <path
-                      fill-rule="evenodd"
+                      fillRule="evenodd"
                       d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
                     />
                   </svg>

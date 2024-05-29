@@ -1,33 +1,48 @@
 import { useEffect, useRef, useState } from "react";
 
-const Player = ({ currentSongIndex, setCurrentSongIndex, songs = [] }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(50); 
+const Player = ({
+  currentSongIndex,
+  setCurrentSongIndex,
+  Songs,
+  imagenAlbum,
+  isPlaying, // Estado de reproducción de audio
+  setIsPlaying, // Función para actualizar el estado de reproducción
+}) => {
+  const [volume, setVolume] = useState(50);
   const audioRef = useRef(new Audio());
+  
  
   useEffect(() => {
-    // Inicializar currentSongIndex con 0 si es null
     if (currentSongIndex === null) {
       setCurrentSongIndex(0);
     }
-  }, [currentSongIndex, setCurrentSongIndex]);
+
+    if (Songs.length > 0) {
+      audioRef.current.src = Songs[currentSongIndex].url;
+      if (isPlaying) {
+        audioRef.current.play();
+      }
+    }
+  }, [currentSongIndex, setCurrentSongIndex, isPlaying, Songs]);
 
   const playSong = () => {
-    setIsPlaying(true);
+    setIsPlaying(true); // Actualizar el estado de reproducción a verdadero
     audioRef.current.play();
   };
+
   const pauseSong = () => {
-    setIsPlaying(false);
+    setIsPlaying(false); // Actualizar el estado de reproducción a falso
     audioRef.current.pause();
   };
 
   const playNextSong = () => {
-    const nextIndex = (currentSongIndex + 1) % songs.length;
+    const nextIndex = (currentSongIndex + 1) % Songs.length;
     setCurrentSongIndex(nextIndex);
+    console.log(Songs[currentSongIndex].url)
   };
 
   const playPreviousSong = () => {
-    const previousIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+    const previousIndex = (currentSongIndex - 1 + Songs.length) % Songs.length;
     setCurrentSongIndex(previousIndex);
   };
 
@@ -46,20 +61,17 @@ const Player = ({ currentSongIndex, setCurrentSongIndex, songs = [] }) => {
     }
   };
 
-  useEffect(() => {
-    audioRef.current.src = songs[currentSongIndex].source;
-    if (isPlaying) {
-      audioRef.current.play();
-    }
-  }, [currentSongIndex, isPlaying, songs]);
+  
+
   return (
     <div className="player">
-      <div className="album-cover">
-        <img src={songs[currentSongIndex].cover} alt="Album cover" />
+       <div className="album-cover">
+        <img src={imagenAlbum} alt="Album cover" />
       </div>
       <div className="song-info">
-        <h3>{songs[currentSongIndex].title}</h3>
-        <p>{songs[currentSongIndex].artist} - {songs[currentSongIndex].album}</p>
+        {Songs.length > 0 && (
+          <h3>{Songs[currentSongIndex].nombre}</h3>
+        )}
       </div>
       <div className="player-controls">
         <button className="control-button" onClick={playPreviousSong}>

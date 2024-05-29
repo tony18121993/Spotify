@@ -9,6 +9,7 @@ import RegisterPage from "./components/Registro";
 
 const App = () => {
   return (
+    
     <Router>
       <Routes>
         <Route path="/" element={<LoginPage />} />
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="*" element={<Main />} /> 
       </Routes>
     </Router>
+    
   );
 };
 
