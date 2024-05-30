@@ -18,7 +18,7 @@ const Nav = () => {
     localStorage.removeItem("usuario");
     localStorage.removeItem("token");
     localStorage.removeItem("tipo_usuario");
-    navigate("/");
+    window.location.href = `http://localhost:3000`;
   };
 
   return (

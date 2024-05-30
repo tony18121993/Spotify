@@ -10,7 +10,8 @@ const Player = ({
 }) => {
   const [volume, setVolume] = useState(50);
   const audioRef = useRef(new Audio());
-
+  const token = localStorage.getItem("token");
+  
   useEffect(() => {
     if (currentSongIndex === null) {
       setCurrentSongIndex(0);

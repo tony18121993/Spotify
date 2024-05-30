@@ -6,6 +6,8 @@ import SearchBar from "./Search";
 import  CrearListaReprodruccion  from "./ListaRepodrucionCrear";
 
 import AlbumArtista from "./AlbumsArtista";
+import Listas from "./pages/PlaylistDetalle";
+
 
 
 export function Main({ setCurrentSongIndex , setnumeroalbum}) {
@@ -19,7 +21,7 @@ export function Main({ setCurrentSongIndex , setnumeroalbum}) {
           <Route path="/your-library" element={<CrearListaReprodruccion />} />
           <Route path="/artista/:idArtista" element={<AlbumArtista />} />
           <Route path="/playlist/:id" element={<PlaylistPage setCurrentSongIndex={setCurrentSongIndex} setnumeroalbum={setnumeroalbum}/>} /> {/* Pasar la función setCurrentSongIndex como prop */}
-          <Route path="/search/playlist/:id" element={<PlaylistPage setCurrentSongIndex={setCurrentSongIndex} />} /> {/* Pasar la función setCurrentSongIndex como prop */}
+          <Route path="/listas/:id" element={<Listas setCurrentSongIndex={setCurrentSongIndex} />} /> 
         </Routes>
 
         

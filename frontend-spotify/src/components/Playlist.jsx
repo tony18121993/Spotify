@@ -7,7 +7,7 @@ const Playlist = ({ items, type }) => {
   return (
     <div className="cardsWrapInner">
       {items.map((item, idLista) => (
-        <Link to={`/inicio/playlist/` + item.idLista} key={idLista}>
+        <Link to={`/inicio/listas/` + item.idLista} key={idLista}>
           <div className="card" key={idLista}>
             <div className="cardImage">
               <img src="https://cdn-icons-png.flaticon.com/512/565/565267.png" alt={item.name || item.nombre} />

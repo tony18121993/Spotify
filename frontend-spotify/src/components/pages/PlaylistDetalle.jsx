@@ -1,102 +1,55 @@
 import React, { useState, useEffect } from "react";
-// import { useParams } from 'react-router-dom';
-import { ReactComponent as PlayIcon } from "../../svgs/play.svg";
-import { ReactComponent as HeartIcon } from "../../svgs/heart.svg";
-import { ReactComponent as NoteIcon } from "../../svgs/note.svg";
+import { useParams } from "react-router-dom";
+import { ReactComponent as PlayIcon } from "../../svgs/playIcon.svg";
 
-const CancionesPlaylist = ({ setCurrentSongIndex }) => {
-  // const { id } = useParams();
-  
-  const [showPopup, setShowPopup] = useState(false); // Estado para controlar la visibilidad del popup
-  const [userType, setUserType] = useState(""); // Estado para almacenar el tipo de usuario
+const Listas = ({ setCurrentSongIndex }) => {
+  const { id } = useParams();
+  const [playlist, setPlaylist] = useState(null);
+  const [songs, setSongs] = useState([]);
 
   useEffect(() => {
-    // Obteniendo el tipo de usuario del localStorage
-    const tipo_usuario = localStorage.getItem("tipo_usuario");
-    setUserType(tipo_usuario);
-  }, []);
+    const fetchPlaylistDetails = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5186/listas/${id}`
+        );
+        const data = await response.json();
+        setPlaylist(data[0]);
+        
+        const respuestacanciones=await fetch(
+          `http://localhost:5186/Canciones/listas/${id}`
+        );
+        const data1 = await respuestacanciones.json();
+        setSongs(data1);
+      } catch (error) {
+        console.error("Error fetching playlist details:", error);
+      }
+    };
 
-  const playlistOptions = [
-    {
-      name: 'Fuego',
-      artist: 'Estopa',
-      duration: '4:07',
-    },
-    {
-      name: 'American Idiot',
-      artist: 'Greenday',
-      duration: '3:45',
-    },
-    {
-      name: 'El paraiso',
-      artist: 'Izal',
-      duration: '5:02',
-    },
-    {
-      name: 'Bohemian Rhapsody',
-      artist: 'Queen',
-      duration: '6:07',
-    },
-    {
-      name: 'Hotel California',
-      artist: 'Eagles',
-      duration: '6:30',
-    },
-  ];
+    fetchPlaylistDetails();
+  }, [id]);
 
-  const handleAddToPlaylist = () => {
-    if (userType === "premium") {
-      setShowPopup(true);
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 2000);
-    } else {
-      setShowPopup(true); 
-      setTimeout(() => {
-        setShowPopup(false);
-      }, 2000);
-    }
-  };
+  if (!playlist) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className="playlistPage">
+    <div className="playlistPage ms-3">
       <div className="mainInner">
         <div className="playlistPageInfo">
-          <div className="playlistPageImage">
+          <div className="playlistPageImage mb-3">
             <img
-              src="https://images.unsplash.com/photo-1587201572498-2bc131fbf113?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=924&q=80"
-              alt="pic"
+              src="https://cdn-icons-png.flaticon.com/512/565/565267.png"
+              alt={playlist.nombre}
             />
           </div>
-          <div className="playlistPageContent">
-            <p className="smallText uppercase bold">Playlist</p>
-            <h1>Lofi </h1>
-            <p className="tagline">
-              Minimalismo, electrónica y música clásica moderna para
-              concentrarse
-            </p>
-            <div className="playlistPageDesc">
-              <p className="spotify">Música</p>
-              <span>699,428 likes</span>
-              <span>4hr 35 min</span>
-            </div>
-          </div>
+          <h1 className="ms-3">{playlist.nombre}</h1>
+          <p className="ms-3">{playlist.publica ? "Pública" : "Privada"}</p>
+          <span className="ms-3">{songs.length} canciones</span>
         </div>
         <div className="playlistPageSongs">
-          <div className="playlistButtons">
-            <span className="playIcon">
-              <PlayIcon />
-            </span>
-            <div className="icons">
-              <div className="icon iconsHeart mb-2">
-                <HeartIcon />
-              </div>
-              <div className="icon iconsDots"></div>
-            </div>
-          </div>
           <ul className="songList">
-            {showPopup && <div className="popup my-4">{userType === "premium" ? "Canción añadida a tu playlist personal" : "No eres usuario premium, no puedes crear listas de reproducción."}</div>}
-            {playlistOptions.map((song, index) => (
+            {songs.map((song, index) => (
               <li
                 key={index}
                 onClick={() => {
@@ -104,31 +57,12 @@ const CancionesPlaylist = ({ setCurrentSongIndex }) => {
                 }}
               >
                 <div className="songIcon">
-                  <NoteIcon className="noteI" />
-                  <PlayIcon className="playI" />
+                  <PlayIcon />
                 </div>
                 <div className="songDetails">
-                  <h3>{song.name}</h3>
-                  <span>{song.artist}</span>
+                  <h3>{song.nombre}</h3>
+                  <span>{song.duracion}</span>
                 </div>
-                <div className="songTime">
-                  <span>{song.duration}</span>
-                </div>
-                <button className="add-button" onClick={handleAddToPlaylist}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    classname="bi bi-plus-lg"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"
-                    />
-                  </svg>
-                </button>
               </li>
             ))}
           </ul>
@@ -138,4 +72,4 @@ const CancionesPlaylist = ({ setCurrentSongIndex }) => {
   );
 };
 
-export default CancionesPlaylist;
+export default Listas;
