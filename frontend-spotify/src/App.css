@@ -540,6 +540,12 @@ ul.songList li .songIcon svg {
   color: #1db954;
 }
 
+.close-button{
+  background-color: transparent;
+  border: none;
+  color: rgb(255, 0, 0);
+}
+
 /* Estilos para la barra de desplazamiento */
 ::-webkit-scrollbar {
   width: 10px; /* Ancho de la barra de desplazamiento */

@@ -7,44 +7,57 @@ import Nav from "./Nav";
 export function Inicio() {
   const navigate = useNavigate();
   const [numeroalbum, setnumeroalbum] = useState(4);
-  const [currentSongIndex, setCurrentSongIndex] = useState(1);
-  const [isPlaying, setIsPlaying] = useState(); // Estado de reproducción de audio
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [Songs, setSongs] = useState([]);
   const [imagenAlbum, setimagenAlbum] = useState("");
-const token = localStorage.getItem("token");
+  const [contextType, setContextType] = useState("album"); // Nuevo estado
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
-    // Comprobar si existe un token en el localStorage
-    
-    // Si no hay token, redirigir al usuario a la página de inicio de sesión
     if (!token) {
       navigate("/");
     }
-  },[navigate]);
+  }, [navigate, token]);
+
   useEffect(() => {
-    const fetchAlbumData = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:5186/CancionesporAlbum/${numeroalbum}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        let url = "";
+
+        console.log("contexto"+contextType)
+        console.log("albumolista"+numeroalbum)
+        if (contextType === "album") {
+          url = `http://localhost:5186/CancionesporAlbum/${numeroalbum}`;
+        } else if (contextType === "playlist") {
+          url = `http://localhost:5186/Canciones/listas/${numeroalbum}`;
+        }
+        
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        
         const data = await response.json();
-        setimagenAlbum(data[0].imagen);
-        setSongs(data[0].canciones);
-        console.log(Songs)
-        console.log(currentSongIndex)
+        if (contextType === "album") {
+          setimagenAlbum(data[0].imagen);
+          setSongs(data[0].canciones);
+        } else if (contextType === "playlist") {
+          setimagenAlbum("https://cdn-icons-png.flaticon.com/512/565/565267.png"); 
+          setSongs(data);
+        }
+        
+        
       } catch (error) {
-        console.error("Error fetching album data:", error);
+        console.error("Error fetching data:", error);
       }
     };
 
-    fetchAlbumData();
-  }, [numeroalbum]);
+    fetchData();
+  }, [numeroalbum, contextType, token]);
 
   return (
     <div className="outerWrap">
@@ -53,6 +66,7 @@ const token = localStorage.getItem("token");
         <Main
           setCurrentSongIndex={setCurrentSongIndex}
           setnumeroalbum={setnumeroalbum}
+          setContextType={setContextType} // Pasar el setter de contextType
         />
       </div>
       <div className="musicControls">
@@ -61,8 +75,8 @@ const token = localStorage.getItem("token");
           currentSongIndex={currentSongIndex}
           setCurrentSongIndex={setCurrentSongIndex}
           imagenAlbum={imagenAlbum}
-          isPlaying={isPlaying} 
-          setIsPlaying={setIsPlaying} 
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
         />
       </div>
     </div>

@@ -4,7 +4,7 @@ import { ReactComponent as PlayIcon } from "../../svgs/play.svg";
 import { ReactComponent as HeartIcon } from "../../svgs/heart.svg";
 import { ReactComponent as NoteIcon } from "../../svgs/note.svg";
 
-const PlaylistPage = ({ setCurrentSongIndex, setnumeroalbum }) => {
+const PlaylistPage = ({ setCurrentSongIndex, setnumeroalbum ,setContextType}) => {
   const { id } = useParams();
   const [album, setAlbum] = useState(null);
   const [songs, setSongs] = useState([]);
@@ -153,6 +153,7 @@ const PlaylistPage = ({ setCurrentSongIndex, setnumeroalbum }) => {
                 onClick={() => {
                   setCurrentSongIndex(index);
                   setnumeroalbum(id);
+                  setContextType("album")
                 }}
               >
                 <div className="songIcon">
@@ -163,7 +164,7 @@ const PlaylistPage = ({ setCurrentSongIndex, setnumeroalbum }) => {
                   <h3>{song.nombre}</h3>
                   <span>{song.artista}</span>
                 </div>
-                <div className="songTime">
+                <div className="songTime me-3">
                   <span>{song.duracion}</span>
                 </div>
                 <button className="add-button" onClick={() => handleAddToPlaylist(song)}>
