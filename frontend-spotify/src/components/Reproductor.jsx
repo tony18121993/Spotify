@@ -18,10 +18,10 @@ const Player = ({
 
     if (Songs.length > 0) {
       const audio = audioRef.current;
-      audio.src = Songs[currentSongIndex].url;
+      audio.src = Songs[currentSongIndex]?.url || "";
 
       const playAudio = () => {
-        if (isPlaying) {
+        if (isPlaying && audio.src) {
           audio.play();
         }
       };
@@ -69,15 +69,17 @@ const Player = ({
     }
   };
 
+  if (!Songs.length || currentSongIndex === null || !Songs[currentSongIndex]) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="player">
       <div className="album-cover">
         <img src={imagenAlbum} alt="Album cover" />
       </div>
       <div className="song-info">
-        {Songs.length > 0 && (
-          <h3>{Songs[currentSongIndex].nombre}</h3>
-        )}
+        <h3>{Songs[currentSongIndex].nombre}</h3>
       </div>
       <div className="player-controls">
         <button className="control-button" onClick={playPreviousSong}>

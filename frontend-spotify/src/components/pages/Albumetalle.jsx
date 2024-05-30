@@ -4,7 +4,7 @@ import { ReactComponent as PlayIcon } from "../../svgs/play.svg";
 import { ReactComponent as HeartIcon } from "../../svgs/heart.svg";
 import { ReactComponent as NoteIcon } from "../../svgs/note.svg";
 
-const PlaylistPage = ({ setCurrentSongIndex,setnumeroalbum }) => {
+const PlaylistPage = ({ setCurrentSongIndex, setnumeroalbum }) => {
   const { id } = useParams();
   const [album, setAlbum] = useState(null);
   const [songs, setSongs] = useState([]);
@@ -12,7 +12,7 @@ const PlaylistPage = ({ setCurrentSongIndex,setnumeroalbum }) => {
   const [userPremium, setUserPremium] = useState(false);
   const [playlists, setPlaylists] = useState([]);
   const [selectedSong, setSelectedSong] = useState(null);
-  const [message, setMessage] = useState(""); // Estado para almacenar el mensaje de la respuesta del servidor
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -28,7 +28,6 @@ const PlaylistPage = ({ setCurrentSongIndex,setnumeroalbum }) => {
         const data = await response.json();
         setAlbum(data[0]);
         setSongs(data[0].canciones);
-        
         setUserPremium(data[0].userPremium);
       } catch (error) {
         console.error('Error fetching album data:', error);
@@ -36,7 +35,7 @@ const PlaylistPage = ({ setCurrentSongIndex,setnumeroalbum }) => {
     };
 
     fetchAlbumData();
-  }, [id,message]);
+  }, [id, message]);
 
   const handleAddToPlaylist = async (song) => {
     if (userPremium) {
@@ -65,8 +64,6 @@ const PlaylistPage = ({ setCurrentSongIndex,setnumeroalbum }) => {
   };
 
   const handleAddSongToPlaylist = async (playlistId) => {
-    
-    
     const token = localStorage.getItem('token');
     try {
       const response = await fetch(`http://localhost:5186/AnadirCancionAPlaylist`, {
@@ -79,14 +76,9 @@ const PlaylistPage = ({ setCurrentSongIndex,setnumeroalbum }) => {
       });
       const data = await response.json();
       if (response.ok) {
-       
-        setMessage(data.message); 
-        console.log(message)
-        // setShowPopup(false);
-        
+        setMessage(data.message);
       } else {
-        setMessage(data.message); 
-        console.log(data.message)
+        setMessage(data.message);
       }
     } catch (error) {
       console.error('Error adding song to playlist:', error);
@@ -94,7 +86,7 @@ const PlaylistPage = ({ setCurrentSongIndex,setnumeroalbum }) => {
   };
 
   const handleClosePopup = () => {
-    setMessage("")
+    setMessage("");
     setShowPopup(false);
   };
 
@@ -107,10 +99,7 @@ const PlaylistPage = ({ setCurrentSongIndex,setnumeroalbum }) => {
       <div className="mainInner">
         <div className="playlistPageInfo">
           <div className="playlistPageImage">
-            <img
-              src={album.imagen}
-              alt={album.nombre}
-            />
+            <img src={album.imagen} alt={album.nombre} />
           </div>
           <div className="playlistPageContent">
             <p className="smallText uppercase bold">Álbum</p>
@@ -140,13 +129,10 @@ const PlaylistPage = ({ setCurrentSongIndex,setnumeroalbum }) => {
                 <div className="overlay" onClick={handleClosePopup}></div>
                 <div className="popup my-4">
                   <button className="close-btn" onClick={handleClosePopup}>&times;</button>
-                  {
-                    message ? (<p className="message">{message}</p>) :null
-
-                  }
+                  {message ? (<p className="message">{message}</p>) : null}
                   {userPremium ? (
                     <div>
-                      <h3>Elige una de tus listas de reproducción </h3>
+                      <h3>Elige una de tus listas de reproducción</h3>
                       <ul>
                         {playlists.map((playlist) => (
                           <li key={playlist.idLista} onClick={() => handleAddSongToPlaylist(playlist.idLista)}>
@@ -158,7 +144,6 @@ const PlaylistPage = ({ setCurrentSongIndex,setnumeroalbum }) => {
                   ) : (
                     <p className="premium-message">No eres usuario premium, no puedes crear listas de reproducción.</p>
                   )}
-                 
                 </div>
               </>
             )}
