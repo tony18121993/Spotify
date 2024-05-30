@@ -8,17 +8,19 @@ export function Inicio() {
   const navigate = useNavigate();
   const [numeroalbum, setnumeroalbum] = useState(4);
   const [currentSongIndex, setCurrentSongIndex] = useState(1);
-  const [isPlaying, setIsPlaying] = useState(false); // Estado de reproducción de audio
+  const [isPlaying, setIsPlaying] = useState(); // Estado de reproducción de audio
   const [Songs, setSongs] = useState([]);
   const [imagenAlbum, setimagenAlbum] = useState("");
-
+const token = localStorage.getItem("token");
   useEffect(() => {
     // Comprobar si existe un token en el localStorage
-    const token = localStorage.getItem("token");
+    
     // Si no hay token, redirigir al usuario a la página de inicio de sesión
     if (!token) {
       navigate("/");
     }
+  },[navigate]);
+  useEffect(() => {
     const fetchAlbumData = async () => {
       try {
         const response = await fetch(
@@ -34,13 +36,15 @@ export function Inicio() {
         const data = await response.json();
         setimagenAlbum(data[0].imagen);
         setSongs(data[0].canciones);
+        console.log(Songs)
+        console.log(currentSongIndex)
       } catch (error) {
         console.error("Error fetching album data:", error);
       }
     };
 
     fetchAlbumData();
-  }, [navigate, numeroalbum]);
+  }, [numeroalbum]);
 
   return (
     <div className="outerWrap">
@@ -57,8 +61,8 @@ export function Inicio() {
           currentSongIndex={currentSongIndex}
           setCurrentSongIndex={setCurrentSongIndex}
           imagenAlbum={imagenAlbum}
-          isPlaying={isPlaying} // Pasar estado de reproducción al componente Player
-          setIsPlaying={setIsPlaying} // Pasar función para actualizar el estado de reproducción
+          isPlaying={isPlaying} 
+          setIsPlaying={setIsPlaying} 
         />
       </div>
     </div>

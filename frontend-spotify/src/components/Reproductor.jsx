@@ -5,40 +5,48 @@ const Player = ({
   setCurrentSongIndex,
   Songs,
   imagenAlbum,
-  isPlaying, // Estado de reproducción de audio
-  setIsPlaying, // Función para actualizar el estado de reproducción
+  isPlaying,
+  setIsPlaying,
 }) => {
   const [volume, setVolume] = useState(50);
   const audioRef = useRef(new Audio());
-  
- 
+
   useEffect(() => {
     if (currentSongIndex === null) {
       setCurrentSongIndex(0);
     }
 
     if (Songs.length > 0) {
-      audioRef.current.src = Songs[currentSongIndex].url;
-      if (isPlaying) {
-        audioRef.current.play();
-      }
+      const audio = audioRef.current;
+      audio.src = Songs[currentSongIndex].url;
+
+      const playAudio = () => {
+        if (isPlaying) {
+          audio.play();
+        }
+      };
+
+      audio.addEventListener("canplay", playAudio);
+
+      return () => {
+        audio.removeEventListener("canplay", playAudio);
+      };
     }
-  }, [currentSongIndex, setCurrentSongIndex, isPlaying, Songs]);
+  }, [currentSongIndex, setCurrentSongIndex, Songs, isPlaying]);
 
   const playSong = () => {
-    setIsPlaying(true); // Actualizar el estado de reproducción a verdadero
+    setIsPlaying(true);
     audioRef.current.play();
   };
 
   const pauseSong = () => {
-    setIsPlaying(false); // Actualizar el estado de reproducción a falso
+    setIsPlaying(false);
     audioRef.current.pause();
   };
 
   const playNextSong = () => {
     const nextIndex = (currentSongIndex + 1) % Songs.length;
     setCurrentSongIndex(nextIndex);
-    console.log(Songs[currentSongIndex].url)
   };
 
   const playPreviousSong = () => {
@@ -61,11 +69,9 @@ const Player = ({
     }
   };
 
-  
-
   return (
     <div className="player">
-       <div className="album-cover">
+      <div className="album-cover">
         <img src={imagenAlbum} alt="Album cover" />
       </div>
       <div className="song-info">
