@@ -166,6 +166,7 @@ const CrearListaReproduccion = () => {
       if (response.ok) {
         const data = await response.json();
         settarjeta(true);
+        setRecarga(false)
         setShowConfirmModal(false);
       } else {
         console.error(
