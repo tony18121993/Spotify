@@ -9,9 +9,10 @@ const CrearListaReproduccion = () => {
   const [tipoUsuario, setTipoUsuario] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [listaReproduccion, setListaReproduccion] = useState("");
   const [listasUsuario, setListasUsuario] = useState([]);
-  const [recarga,setRecarga]=useState(false);
+  const [recarga, setRecarga] = useState(false);
   const [isPublica, setIsPublica] = useState(false);
   const token = localStorage.getItem("token");
 
@@ -64,7 +65,7 @@ const CrearListaReproduccion = () => {
     if (tipoUsuario) {
       fetchListasUsuario();
     }
-  }, [tipoUsuario, token,recarga,showCreateModal]);
+  }, [tipoUsuario, token, recarga, showCreateModal]);
 
   const handleChangePlan = () => {
     setShowModal(true);
@@ -153,7 +154,7 @@ const CrearListaReproduccion = () => {
     }
   };
 
-  const handleEliminarPremium = async (data) => {
+  const handleEliminarPremium = async () => {
     try {
       const response = await fetch("http://localhost:5186/EliminarTarjeta", {
         method: "POST",
@@ -163,17 +164,26 @@ const CrearListaReproduccion = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        setRecarga(true);
+        setRecarga(false);
+        setShowConfirmModal(false);
       } else {
         console.error(
-          "Error al eliminar la tarjeta  del usuario:",
+          "Error al eliminar la tarjeta del usuario:",
           response.status
         );
       }
     } catch (error) {
-      console.error("Error al obtener las listas de reproducción del usuario:", error);
+      console.error("Error al eliminar la tarjeta del usuario:", error);
     }
-  }
+  };
+
+  const handleCancelSubscription = () => {
+    setShowConfirmModal(true);
+  };
+
+  const handleCloseConfirmModal = () => {
+    setShowConfirmModal(false);
+  };
 
   return (
     <div className="crear-lista">
@@ -206,7 +216,7 @@ const CrearListaReproduccion = () => {
                     <div className="card-propia-Content mt-2">
                       <h3 className="mb-2">{lista.nombre}</h3>
                      
-                      <p>{lista.publica ?  "Lista pública" : "Lista privada"}</p>
+                      <p>{lista.publica ? "Lista pública" : "Lista privada"}</p>
 
                     </div>
                     <span className="card-propia-playIcon">
@@ -217,8 +227,8 @@ const CrearListaReproduccion = () => {
               ))}
             </div>
           </div>
-          <button className="mt-5" onClick={handleEliminarPremium}>
-            Cancelar suscripcion Premium
+          <button className="mt-5" onClick={handleCancelSubscription}>
+            Cancelar suscripción Premium
           </button>
         </div>
       )}
@@ -301,7 +311,6 @@ const CrearListaReproduccion = () => {
         </Modal.Footer>
       </Modal>
 
-      
       {/* Modal para crear lista de reproducción */}
       <Modal show={showCreateModal} onHide={handleCloseCreateModal}>
         <Modal.Header closeButton>
@@ -334,6 +343,24 @@ const CrearListaReproduccion = () => {
           </Button>
           <Button variant="primary" onClick={handleGuardarLista}>
             Guardar lista
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal para confirmar la cancelación de la suscripción Premium */}
+      <Modal show={showConfirmModal} onHide={handleCloseConfirmModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Cancelar Suscripción Premium</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>¿Estás seguro? No podrás acceder a tus listas privadas hasta que vuelvas a ser premium.</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseConfirmModal}>
+            No
+          </Button>
+          <Button variant="primary" onClick={handleEliminarPremium}>
+            Sí
           </Button>
         </Modal.Footer>
       </Modal>
