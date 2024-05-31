@@ -58,7 +58,7 @@ const SearchBar = () => {
         <input
           type="text"
           className="search-input"
-          placeholder="Buscar..."
+          placeholder="Buscar artistas y listas publicas"
           value={query}
           onChange={handleChange}
         />

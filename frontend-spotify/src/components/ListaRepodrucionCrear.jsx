@@ -13,6 +13,7 @@ const CrearListaReproduccion = () => {
   const [listaReproduccion, setListaReproduccion] = useState("");
   const [listasUsuario, setListasUsuario] = useState([]);
   const [recarga, setRecarga] = useState(false);
+  const [tarjeta, settarjeta] = useState(false)
   const [isPublica, setIsPublica] = useState(false);
   const token = localStorage.getItem("token");
 
@@ -65,7 +66,7 @@ const CrearListaReproduccion = () => {
     if (tipoUsuario) {
       fetchListasUsuario();
     }
-  }, [tipoUsuario, token, recarga, showCreateModal]);
+  }, [tipoUsuario, token, recarga, showCreateModal,tarjeta]);
 
   const handleChangePlan = () => {
     setShowModal(true);
@@ -164,7 +165,7 @@ const CrearListaReproduccion = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        setRecarga(false);
+        settarjeta(true);
         setShowConfirmModal(false);
       } else {
         console.error(
