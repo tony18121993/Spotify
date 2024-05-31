@@ -6,7 +6,7 @@ import Nav from "./Nav";
 
 export function Inicio() {
   const navigate = useNavigate();
-  const [numeroalbum, setnumeroalbum] = useState(4);
+  const [numeroalbum, setnumeroalbum] = useState(16);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [Songs, setSongs] = useState([]);
