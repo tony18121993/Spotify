@@ -11,6 +11,8 @@ const CrearListaReproduccion = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [listaReproduccion, setListaReproduccion] = useState("");
   const [listasUsuario, setListasUsuario] = useState([]);
+  const [recarga,setRecarga]=useState(false);
+  const [isPublica, setIsPublica] = useState(false);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -36,8 +38,33 @@ const CrearListaReproduccion = () => {
       }
     };
 
+    const fetchListasUsuario = async () => {
+      try {
+        const response = await fetch("http://localhost:5186/ObtenerListasUsuario", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setListasUsuario(data);
+        } else {
+          console.error(
+            "Error al obtener las listas de reproducción del usuario:",
+            response.status
+          );
+        }
+      } catch (error) {
+        console.error("Error al obtener las listas de reproducción del usuario:", error);
+      }
+    };
+
     fetchTipoUsuario();
-  }, []);
+    if (tipoUsuario) {
+      fetchListasUsuario();
+    }
+  }, [tipoUsuario, token,recarga,showCreateModal]);
 
   const handleChangePlan = () => {
     setShowModal(true);
@@ -56,17 +83,32 @@ const CrearListaReproduccion = () => {
     setShowCreateModal(false);
   };
 
-  const handleGuardarLista = () => {
-    const id = Math.floor(Math.random() * 1000) + 1;
-    const nuevaLista = {
-      id: id,
-      propietario: 1,
-      nombreLista: listaReproduccion,
-      img: "https://images.unsplash.com/photo-1587169544748-d21bd810f57e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80",
-      canciones: ["Canción 1", "Canción 2", "Canción 3"],
-    };
-    setListasUsuario([...listasUsuario, nuevaLista]);
-    setShowCreateModal(false);
+  const handleGuardarLista = async () => {
+    try {
+      const nuevaLista = {
+        nombre: listaReproduccion,
+        publica: isPublica,
+      };
+
+      const response = await fetch("http://localhost:5186/CrearLista", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(nuevaLista),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        
+        setShowCreateModal(false);
+      } else {
+        console.error("Error al crear la lista:", response.status);
+      }
+    } catch (error) {
+      console.error("Error al crear la lista:", error);
+    }
   };
 
   const {
@@ -102,7 +144,7 @@ const CrearListaReproduccion = () => {
       if (response.ok) {
         const responseData = await response.json();
         setShowModal(false);
-        window.location.reload();
+        setRecarga(true);
       } else {
         console.error("Error al agregar la tarjeta:", response.status);
       }
@@ -110,6 +152,28 @@ const CrearListaReproduccion = () => {
       console.error("Error al agregar la tarjeta:", error);
     }
   };
+
+  const handleEliminarPremium = async (data) => {
+    try {
+      const response = await fetch("http://localhost:5186/EliminarTarjeta", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setRecarga(true);
+      } else {
+        console.error(
+          "Error al eliminar la tarjeta  del usuario:",
+          response.status
+        );
+      }
+    } catch (error) {
+      console.error("Error al obtener las listas de reproducción del usuario:", error);
+    }
+  }
 
   return (
     <div className="crear-lista">
@@ -125,23 +189,25 @@ const CrearListaReproduccion = () => {
           <button onClick={handleCrearLista}>
             Crear Lista de Reproducción
           </button>
+         
           <div>
             <h3 className="mt-3">Tus listas de reproducción:</h3>
             <div className="card-container-propia">
               {listasUsuario.map((lista, index) => (
                 <Link
-                  to={`/inicio/playlist/${lista.id}`}
+                  to={`/inicio/listas/${lista.idLista}`}
                   key={index}
                   className="enlace-card-propia"
                 >
                   <div className="card-propia">
                     <div className="card-propia-Image">
-                      <img src={lista.img} alt={lista.nombreLista} />
+                      <img src="https://cdn-icons-png.flaticon.com/512/565/565267.png" alt={lista.nombre} />
                     </div>
-                    <div className="card-propia-Content">
-                      <h3>{lista.nombreLista}</h3>
-                      <p>Propietario: {lista.propietario}</p>
-                      <p>Canciones: {lista.canciones.join(", ")}</p>
+                    <div className="card-propia-Content mt-2">
+                      <h3 className="mb-2">{lista.nombre}</h3>
+                     
+                      <p>{lista.publica ?  "Lista pública" : "Lista privada"}</p>
+
                     </div>
                     <span className="card-propia-playIcon">
                       <PlayIcon />
@@ -151,6 +217,9 @@ const CrearListaReproduccion = () => {
               ))}
             </div>
           </div>
+          <button className="mt-5" onClick={handleEliminarPremium}>
+            Cancelar suscripcion Premium
+          </button>
         </div>
       )}
 
@@ -232,6 +301,7 @@ const CrearListaReproduccion = () => {
         </Modal.Footer>
       </Modal>
 
+      
       {/* Modal para crear lista de reproducción */}
       <Modal show={showCreateModal} onHide={handleCloseCreateModal}>
         <Modal.Header closeButton>
@@ -246,6 +316,14 @@ const CrearListaReproduccion = () => {
                 value={listaReproduccion}
                 onChange={(e) => setListaReproduccion(e.target.value)}
                 placeholder="Nombre de la lista"
+              />
+            </Form.Group>
+            <Form.Group controlId="formBasicCheckbox" className="mt-3">
+              <Form.Check 
+                type="checkbox" 
+                label="¿Lista pública?" 
+                checked={isPublica}
+                onChange={(e) => setIsPublica(e.target.checked)}
               />
             </Form.Group>
           </Form>
