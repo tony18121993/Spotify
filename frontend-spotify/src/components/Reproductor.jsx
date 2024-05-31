@@ -11,7 +11,7 @@ const Player = ({
   const [volume, setVolume] = useState(50);
   const audioRef = useRef(new Audio());
   const token = localStorage.getItem("token");
-  
+
   useEffect(() => {
     if (currentSongIndex === null) {
       setCurrentSongIndex(0);
@@ -27,10 +27,16 @@ const Player = ({
         }
       };
 
+      const handleSongEnd = () => {
+        playNextSong();
+      };
+
       audio.addEventListener("canplay", playAudio);
+      audio.addEventListener("ended", handleSongEnd);
 
       return () => {
         audio.removeEventListener("canplay", playAudio);
+        audio.removeEventListener("ended", handleSongEnd);
       };
     }
   }, [currentSongIndex, setCurrentSongIndex, Songs, isPlaying]);
