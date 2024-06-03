@@ -35,7 +35,7 @@ const LoginPage = () => {
       });
 
       if (!tipousuarioResponse.ok) {
-        throw new Error('Failed to fetch user type');
+        throw new Error('Fallo al autenticar vuelve a intentarlo en unos momentos ');
       }
 
       const tipousuarioData = await tipousuarioResponse.json();
