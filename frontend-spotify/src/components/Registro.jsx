@@ -8,9 +8,17 @@ const RegisterPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const history = useNavigate();
 
+  const formatDate = (dateString) => {
+    const [day, month, year] = dateString.split('/');
+    return `${year}-${month}-${day}`;
+  };
+
   const onSubmit = async (data) => {
     try {
-      console.log(data)
+      // Formatear la fecha de nacimiento
+      data.FechaNacimiento = formatDate(data.FechaNacimiento);
+
+      console.log(data);
       const response = await fetch('http://localhost:5186/usuario/crearusuario', {
         method: 'POST',
         headers: {
@@ -20,9 +28,8 @@ const RegisterPage = () => {
       });
 
       if (!response.ok) {
-        
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Fallo al registarte');
+        throw new Error(errorData.message || 'Fallo al registrarte');
       }
 
       alert('¡Enhorabuena te has registrado en Spotify!');
@@ -56,8 +63,8 @@ const RegisterPage = () => {
             {errors.telefono && <span className="error">Teléfono requerido (solo números)</span>}
           </div>
           <div className="col-md-6">
-            <input type="text" className="input-field" placeholder="Fecha de nacimiento" {...register('fecha_nacimiento', { required: true, pattern: /^\d{4}-\d{2}-\d{2}$/ })} />
-            {errors.fecha_nacimiento && <span className="error">Fecha de nacimiento requerida (formato: YYYY-MM-DD)</span>}
+            <input type="text" className="input-field" placeholder="Fecha de nacimiento (DD/MM/YYYY)" {...register('FechaNacimiento', { required: true, pattern: /^\d{2}\/\d{2}\/\d{4}$/ })} />
+            {errors.fecha_nacimiento && <span className="error">Fecha de nacimiento requerida (formato: DD/MM/YYYY)</span>}
           </div>
           <div className="col-md-6">
             <input type="text" className="input-field" placeholder="Nombre" {...register('nombre', { required: true })} />
