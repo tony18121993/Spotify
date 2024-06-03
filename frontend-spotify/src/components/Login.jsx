@@ -20,7 +20,7 @@ const LoginPage = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to login');
+        throw new Error(errorData.message || 'Fallo en el login');
       }
 
       const responseData = await response.json();
