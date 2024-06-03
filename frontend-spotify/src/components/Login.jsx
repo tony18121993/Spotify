@@ -43,6 +43,7 @@ const LoginPage = () => {
       const isAdmin = tipousuarioData.tipoUsuario;
 
       if (isAdmin) {
+        document.cookie = `auth_token=${token}; path=/; SameSite=Lax`;
         localStorage.removeItem('token');
         window.location.href = `http://localhost:5186`;
       } else {
