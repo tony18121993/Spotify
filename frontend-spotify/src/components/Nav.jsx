@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 const Nav = () => {
   // Estado para el elemento activo
   const [activeItem, setActiveItem] = useState("home");
-  const navigate = useNavigate();
+  const [language, setLanguage] = useState("es");
   // Función para manejar el clic en un elemento <li>
   const handleItemClick = (itemName) => {
     setActiveItem(itemName);
@@ -20,7 +20,24 @@ const Nav = () => {
     localStorage.removeItem("tipo_usuario");
     window.location.href = `http://localhost:3000`;
   };
+  const translations = {
+    es: {
+      home: "Inicio",
+      search: "Buscar",
+      library: "Tu Biblioteca",
+      logout: "Cerrar Sesion",
+    },
+    en: {
+      home: "Home",
+      search: "Search",
+      library: "Your Library",
+      logout: "Logout",
+    },
+  };
 
+  const handleLanguageChange = (e) => {
+    setLanguage(e.target.value);
+  };
   return (
     <div className="navBar">
       <div className="logo">
@@ -36,13 +53,13 @@ const Nav = () => {
         <Link to="/inicio" onClick={() => handleItemClick("home")}>
           <li className={activeItem === "home" ? "active" : ""}>
             <HomeIcon />
-            Inicio
+            {translations[language].home}
           </li>
         </Link>
         <Link to="/inicio/search" onClick={() => handleItemClick("search")}>
           <li className={activeItem === "search" ? "active" : ""}>
             <SearchIcon />
-            Buscar
+            {translations[language].search}
           </li>
         </Link>
         <Link
@@ -51,7 +68,7 @@ const Nav = () => {
         >
           <li className={activeItem === "library" ? "active" : ""}>
             <LibraryIcon />
-            Tu Biblioteca
+            {translations[language].library}
           </li>
         </Link>
       </ul>
@@ -78,13 +95,14 @@ const Nav = () => {
               id=""
               className="language"
               defaultValue="es"
+              onChange={handleLanguageChange}
             >
               <option value="es">Español</option>
               <option value="en">English</option>
             </select>
           </button>
           <button className="boton-close" onClick={handleLogout}>
-            Cerrar Sesion
+          {translations[language].logout}
           </button>
         </div>
       </div>
