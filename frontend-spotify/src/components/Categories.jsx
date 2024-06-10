@@ -51,13 +51,13 @@ const Categories = () => {
 
   return (
     <div className="mainInner" ref={mainInnerRef}>
-      <div className="cardsWrap">
-        <h2>Artistas</h2>
+      <div className="cardsWrap ">
+        <h2 className='mb-3'>Artistas</h2>
         <Artistas items={artists} type="playlist" />
       </div>
 
       <div className="cardsWrap">
-        <h2>Listas de Reproducción</h2>
+        <h2 className='my-3'>Listas de Reproducción</h2>
         <Playlist items={playlists} type="playlist" />
       </div>
     </div>

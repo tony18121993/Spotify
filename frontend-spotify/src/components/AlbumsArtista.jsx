@@ -23,7 +23,7 @@ const AlbumArtista = ({ type }) => {
   return (
     <div className="mainInner" >
       <div className="cardsWrap">
-        <h2>Albums</h2>
+        <h2 className="mb-3">Albums</h2>
     <div className="cardsWrapInner">
       {albums.map((album, index) => (
         <Link to={`/inicio/playlist/` + album.idAlbum} key={album.idAlbum}>

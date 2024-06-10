@@ -24,9 +24,6 @@ export function Inicio() {
     const fetchData = async () => {
       try {
         let url = "";
-
-        console.log("contexto"+contextType)
-        console.log("albumolista"+numeroalbum)
         if (contextType === "album") {
           url = `http://localhost:5186/CancionesporAlbum/${numeroalbum}`;
         } else if (contextType === "playlist") {

@@ -248,6 +248,10 @@ body {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+.control-button svg{
+  width: 50px;
+}
+
 .volume-button {
   background-color: transparent;
   color: white;
@@ -429,8 +433,6 @@ body {
   margin: 0;
   line-height: 1;
   font-family: circular-black;
-  word-spacing: -18px;
-  letter-spacing: -6px;
 }
 
 .playlistPage .playlistPageContent .tagline {
@@ -643,9 +645,9 @@ ul.songList li .songIcon svg {
   
 
   .playlistPage .playlistPageContent h1 {
-    font-size: 3rem;
-    word-spacing: normal;
-    letter-spacing: normal;
+    font-size: 2rem;
+    /* word-spacing: normal;
+    letter-spacing: normal; */
   }
 }
 
