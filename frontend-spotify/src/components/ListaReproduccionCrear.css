@@ -14,7 +14,7 @@
   
   .crear-lista button {
     display: block;
-    width: 30%;
+    min-width: 30%;
     padding: 12px 20px;
     font-size: 16px;
     text-align: center;

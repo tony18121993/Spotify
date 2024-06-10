@@ -15,9 +15,7 @@ const Nav = () => {
 
   const handleLogout = () => {
     // Eliminar los items del localStorage
-    localStorage.removeItem("usuario");
     localStorage.removeItem("token");
-    localStorage.removeItem("tipo_usuario");
     window.location.href = `http://localhost:3000`;
   };
   const translations = {

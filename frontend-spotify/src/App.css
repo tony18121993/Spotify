@@ -224,7 +224,7 @@ body {
   display: flex;
   align-items: center;
   flex-grow: 1;
-  width: 20%;
+  width: 10%;
 }
 
 .progress-bar {
@@ -576,7 +576,6 @@ ul.songList li .songIcon svg {
 @media (max-width: 768px) {
   .App {
     flex-direction: column;
-    height: auto;
   }
 
   .navBar {
@@ -637,7 +636,7 @@ ul.songList li .songIcon svg {
   }
 
   .progress-bar {
-    width: 90%;
+    width: 70%;
     margin: 10px auto;
   }
 
