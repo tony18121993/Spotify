@@ -67,7 +67,7 @@ const SearchBar = () => {
 
       {searchResultsArtists.length > 0 && (
         <div className="cardsWrap">
-          <h2>Artistas</h2>
+          <h2 className='mb-3'>Artistas</h2>
           <div className="cardsWrapInner">
             {searchResultsArtists.map((artist, id) => (
               <Link to={`/inicio/artista/` + artist.idArtista} key={id}>
@@ -92,7 +92,7 @@ const SearchBar = () => {
       
 {searchResultsPlaylists.length > 0 && (
         <div className="cardsWrap">
-          <h2>Listas de Reproducción</h2>
+          <h2 className='my-3'>Listas de Reproducción</h2>
           <div className="cardsWrapInner">
             {searchResultsPlaylists.map((playlist, id) => (
               <Link to={`/inicio/listas/${playlist.idLista}`} key={id}>
