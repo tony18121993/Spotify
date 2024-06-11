@@ -5,6 +5,7 @@ import { ReactComponent as LibraryIcon } from "../svgs/library.svg";
 import { Link, useNavigate } from "react-router-dom";
 
 const Nav = () => {
+  const navigate = useNavigate();
   // Estado para el elemento activo
   const [activeItem, setActiveItem] = useState("home");
   const [language, setLanguage] = useState("es");
@@ -16,7 +17,7 @@ const Nav = () => {
   const handleLogout = () => {
     // Eliminar los items del localStorage
     localStorage.removeItem("token");
-    window.location.href = `http://localhost:3000`;
+    navigate('/');
   };
   const translations = {
     es: {
