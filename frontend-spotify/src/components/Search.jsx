@@ -33,7 +33,7 @@ const SearchBar = () => {
   const fetchSearchResults = async (searchTerm) => {
     try {
       // Fetch playlists
-      const playlistsResponse = await fetch(`http://localhost:5186/ListasporNombre/${searchTerm}`);
+      const playlistsResponse = await fetch(`http://18.212.117.223:30000/ListasporNombre/${searchTerm}`);
       const playlistsData = await playlistsResponse.json();
       setSearchResultsPlaylists(playlistsData);
     } catch (error) {
@@ -43,7 +43,7 @@ const SearchBar = () => {
 
     try {
       // Fetch artists
-      const artistsResponse = await fetch(`http://localhost:5186/ArtistasporNombre/${searchTerm}`);
+      const artistsResponse = await fetch(`http://18.212.117.223:30000/ArtistasporNombre/${searchTerm}`);
       const artistsData = await artistsResponse.json();
       setSearchResultsArtists(artistsData);
     } catch (error) {
