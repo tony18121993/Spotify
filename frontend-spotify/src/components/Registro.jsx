@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import './Registrostyles.css'; 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const RegisterPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -79,7 +79,7 @@ const RegisterPage = () => {
           </div>
           {errorMessage && <span className="error">{errorMessage}</span>}
         </form>
-        <p className="register-link pt-4">¿Ya tienes cuenta? <a className='enlace-registro' href="/">Inicia sesión aquí</a></p>
+        <p className="register-link pt-4">¿Ya tienes cuenta? <Link className='enlace-registro' to="/">Inicia sesión aquí</Link></p>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import './Loginstyle.css';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -77,7 +77,7 @@ const LoginPage = () => {
           <button type="submit" className="login-button col-12">Iniciar sesión</button>
         </form>
         <div className="pt-4">
-          <p className="register-link">¿No tienes cuenta? <a className='enlace-registro' href="/registro">Regístrate aquí</a></p>
+          <p className="register-link">¿No tienes cuenta? <Link className='enlace-registro' to="/registro">Regístrate aquí</Link></p>
         </div>
       </div>
     </div>
