@@ -10,7 +10,7 @@ const LoginPage = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch('http://localhost:5186/login', {
+      const response = await fetch('http://18.212.117.223:30000/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ const LoginPage = () => {
       const token = responseData.token;
       localStorage.setItem('token', token);
 
-      const tipousuarioResponse = await fetch("http://localhost:5186/usuario/administrador", {
+      const tipousuarioResponse = await fetch("http://18.212.117.223:30000/usuario/administrador", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -43,12 +43,21 @@ const LoginPage = () => {
       const isAdmin = tipousuarioData.tipoUsuario;
 
       if (isAdmin) {
-        document.cookie = `auth_token=${token}; path=/; SameSite=Lax`;
+        var expires = new Date();
+    
+        // Establecer la fecha de expiración en una hora
+        expires.setTime(expires.getTime() + (60 * 60 * 1000)); // 60 minutos * 60 segundos * 1000 milisegundos
+    
+        // Crear la cadena de la cookie con la fecha de expiración y los atributos SameSite y Secure
+        var cookieString = `auth_token=${token}; path=/; SameSite=None; Secure; expires=${expires.toUTCString()}`;
+    
+        // Establecer la cookie
+        document.cookie = cookieString;
         localStorage.removeItem('token');
-        window.location.href = `http://localhost:5186`;
-      } else {
+        window.location.href = `http://18.212.117.223:30000`;
+    } else {
         navigate('/inicio');
-      }
+    }
     } catch (error) {
       setErrorMessage(error.message);
     }

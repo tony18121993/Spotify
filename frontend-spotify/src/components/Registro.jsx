@@ -19,7 +19,7 @@ const RegisterPage = () => {
       data.FechaNacimiento = formatDate(data.FechaNacimiento);
 
       console.log(data);
-      const response = await fetch('http://localhost:5186/usuario/crearusuario', {
+      const response = await fetch('http://18.212.117.223:30000/usuario/crearusuario', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

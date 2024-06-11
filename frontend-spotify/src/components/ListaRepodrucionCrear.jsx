@@ -20,7 +20,7 @@ const CrearListaReproduccion = () => {
   useEffect(() => {
     const fetchTipoUsuario = async () => {
       try {
-        const response = await fetch("http://localhost:5186/usuario/tipo", {
+        const response = await fetch("http://18.212.117.223:30000/usuario/tipo", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -42,7 +42,7 @@ const CrearListaReproduccion = () => {
 
     const fetchListasUsuario = async () => {
       try {
-        const response = await fetch("http://localhost:5186/ObtenerListasUsuario", {
+        const response = await fetch("http://18.212.117.223:30000/ObtenerListasUsuario", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -92,7 +92,7 @@ const CrearListaReproduccion = () => {
         publica: isPublica,
       };
 
-      const response = await fetch("http://localhost:5186/CrearLista", {
+      const response = await fetch("http://18.212.117.223:30000/CrearLista", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -134,7 +134,7 @@ const CrearListaReproduccion = () => {
       // Agregar la fecha de expiración al objeto de datos
       data.FechaExpiracion = fechaExpiracion;
   
-      const response = await fetch("http://localhost:5186/Agregartarjeta", {
+      const response = await fetch("http://18.212.117.223:30000/Agregartarjeta", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -157,7 +157,7 @@ const CrearListaReproduccion = () => {
 
   const handleEliminarPremium = async () => {
     try {
-      const response = await fetch("http://localhost:5186/EliminarTarjeta", {
+      const response = await fetch("http://18.212.117.223:30000/EliminarTarjeta", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

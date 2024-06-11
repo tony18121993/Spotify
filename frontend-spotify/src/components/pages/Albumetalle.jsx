@@ -18,7 +18,7 @@ const PlaylistPage = ({ setCurrentSongIndex, setnumeroalbum ,setContextType}) =>
     const token = localStorage.getItem('token');
     const fetchAlbumData = async () => {
       try {
-        const response = await fetch(`http://localhost:5186/CancionesporAlbum/${id}`, {
+        const response = await fetch(`http://18.212.117.223:30000/CancionesporAlbum/${id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ const PlaylistPage = ({ setCurrentSongIndex, setnumeroalbum ,setContextType}) =>
     if (userPremium) {
       const token = localStorage.getItem('token');
       try {
-        const response = await fetch('http://localhost:5186/ObtenerListasUsuario', {
+        const response = await fetch('http://18.212.117.223:30000/ObtenerListasUsuario', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ const PlaylistPage = ({ setCurrentSongIndex, setnumeroalbum ,setContextType}) =>
   const handleAddSongToPlaylist = async (playlistId) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:5186/AnadirCancionAPlaylist`, {
+      const response = await fetch(`http://18.212.117.223:30000/AnadirCancionAPlaylist`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

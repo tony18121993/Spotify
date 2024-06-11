@@ -12,7 +12,7 @@ const Listas = ({ setCurrentSongIndex, setContextType, setnumeroalbum }) => {
 
   const handleRemoveSongToPlaylist = async (idCancion) => {
     try {
-      const response = await fetch(`http://localhost:5186/EliminarCancionAPlaylist`, {
+      const response = await fetch(`http://18.212.117.223:30000/EliminarCancionAPlaylist`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,13 +37,13 @@ const Listas = ({ setCurrentSongIndex, setContextType, setnumeroalbum }) => {
     const fetchPlaylistDetails = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5186/listas/${id}`
+          `http://18.212.117.223:30000/listas/${id}`
         );
         const data = await response.json();
         setPlaylist(data[0]);
 
         const respuestacanciones = await fetch(
-          `http://localhost:5186/Canciones/listas/${id}`, {
+          `http://18.212.117.223:30000/Canciones/listas/${id}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

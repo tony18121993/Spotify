@@ -25,9 +25,9 @@ export function Inicio() {
       try {
         let url = "";
         if (contextType === "album") {
-          url = `http://localhost:5186/CancionesporAlbum/${numeroalbum}`;
+          url = `http://18.212.117.223:30000/CancionesporAlbum/${numeroalbum}`;
         } else if (contextType === "playlist") {
-          url = `http://localhost:5186/Canciones/listas/${numeroalbum}`;
+          url = `http://18.212.117.223:30000/Canciones/listas/${numeroalbum}`;
         }
         
         const response = await fetch(url, {
