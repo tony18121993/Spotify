@@ -9,7 +9,7 @@ const AlbumArtista = ({ type }) => {
   useEffect(() => {
     const fetchAlbums = async () => {
       try {
-        const response = await fetch(`http://18.212.117.223:30000/AlbumsporArtista/${idArtista}`);
+        const response = await fetch(`https://www.spotify-backend.work.gd/AlbumsporArtista/${idArtista}`);
         const data = await response.json();
         setAlbums(data);
       } catch (error) {

@@ -20,7 +20,7 @@ const CrearListaReproduccion = () => {
   useEffect(() => {
     const fetchTipoUsuario = async () => {
       try {
-        const response = await fetch("http://18.212.117.223:30000/usuario/tipo", {
+        const response = await fetch("https://www.spotify-backend.work.gd/usuario/tipo", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -42,7 +42,7 @@ const CrearListaReproduccion = () => {
 
     const fetchListasUsuario = async () => {
       try {
-        const response = await fetch("http://18.212.117.223:30000/ObtenerListasUsuario", {
+        const response = await fetch("https://www.spotify-backend.work.gd/ObtenerListasUsuario", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -92,7 +92,7 @@ const CrearListaReproduccion = () => {
         publica: isPublica,
       };
 
-      const response = await fetch("http://18.212.117.223:30000/CrearLista", {
+      const response = await fetch("https://www.spotify-backend.work.gd/CrearLista", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -134,7 +134,7 @@ const CrearListaReproduccion = () => {
       // Agregar la fecha de expiración al objeto de datos
       data.FechaExpiracion = fechaExpiracion;
   
-      const response = await fetch("http://18.212.117.223:30000/Agregartarjeta", {
+      const response = await fetch("https://www.spotify-backend.work.gd/Agregartarjeta", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -157,7 +157,7 @@ const CrearListaReproduccion = () => {
 
   const handleEliminarPremium = async () => {
     try {
-      const response = await fetch("http://18.212.117.223:30000/EliminarTarjeta", {
+      const response = await fetch("https://www.spotify-backend.work.gd/EliminarTarjeta", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

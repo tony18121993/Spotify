@@ -10,7 +10,7 @@ const LoginPage = () => {
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch('http://18.212.117.223:30000/login', {
+      const response = await fetch('https://www.spotify-backend.work.gd/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ const LoginPage = () => {
       const token = responseData.token;
       localStorage.setItem('token', token);
 
-      const tipousuarioResponse = await fetch("http://18.212.117.223:30000/usuario/administrador", {
+      const tipousuarioResponse = await fetch("https://www.spotify-backend.work.gd/usuario/administrador", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ const LoginPage = () => {
         // Establecer la cookie
         document.cookie = cookieString;
         localStorage.removeItem('token');
-        window.location.href = `http://18.212.117.223:30000`;
+        window.location.href = `https://www.spotify-backend.work.gd/usuarios`;
     } else {
         navigate('/inicio');
     }

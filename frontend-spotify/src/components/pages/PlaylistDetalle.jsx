@@ -12,7 +12,7 @@ const Listas = ({ setCurrentSongIndex, setContextType, setnumeroalbum }) => {
 
   const handleRemoveSongToPlaylist = async (idCancion) => {
     try {
-      const response = await fetch(`http://18.212.117.223:30000/EliminarCancionAPlaylist`, {
+      const response = await fetch(`https://www.spotify-backend.work.gd/EliminarCancionAPlaylist`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,13 +37,13 @@ const Listas = ({ setCurrentSongIndex, setContextType, setnumeroalbum }) => {
     const fetchPlaylistDetails = async () => {
       try {
         const response = await fetch(
-          `http://18.212.117.223:30000/listas/${id}`
+          `https://www.spotify-backend.work.gd/listas/${id}`
         );
         const data = await response.json();
         setPlaylist(data[0]);
 
         const respuestacanciones = await fetch(
-          `http://18.212.117.223:30000/Canciones/listas/${id}`, {
+          `https://www.spotify-backend.work.gd/Canciones/listas/${id}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

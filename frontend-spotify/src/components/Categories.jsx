@@ -11,7 +11,7 @@ const Categories = () => {
   useEffect(() => {
     const fetchArtists = async () => {
       try {
-        const response = await fetch('http://18.212.117.223:30000/ArtistasTodos');
+        const response = await fetch('https://www.spotify-backend.work.gd/ArtistasTodos');
         const data = await response.json();
         setArtists(data);
       } catch (error) {
@@ -22,7 +22,7 @@ const Categories = () => {
     const fetchPlaylists = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await fetch('http://18.212.117.223:30000/ObtenerListasPublicas', {
+        const response = await fetch('https://www.spotify-backend.work.gd/ObtenerListasPublicas', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

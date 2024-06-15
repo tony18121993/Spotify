@@ -25,9 +25,9 @@ export function Inicio() {
       try {
         let url = "";
         if (contextType === "album") {
-          url = `http://18.212.117.223:30000/CancionesporAlbum/${numeroalbum}`;
+          url = `https://www.spotify-backend.work.gd/CancionesporAlbum/${numeroalbum}`;
         } else if (contextType === "playlist") {
-          url = `http://18.212.117.223:30000/Canciones/listas/${numeroalbum}`;
+          url = `https://www.spotify-backend.work.gd/Canciones/listas/${numeroalbum}`;
         }
         
         const response = await fetch(url, {
