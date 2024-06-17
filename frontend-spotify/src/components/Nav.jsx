@@ -17,7 +17,7 @@ const Nav = () => {
   const handleLogout = () => {
     // Eliminar los items del localStorage
     localStorage.removeItem("token");
-    window.location.href = `https://www.spotifyreact.work.gd`;
+    window.location.href = `https://spotifyreact.work.gd`;
   };
   const translations = {
     es: {
